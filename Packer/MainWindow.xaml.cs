@@ -9,5 +9,9 @@ namespace Packer {
         public MainWindow() {
             InitializeComponent();
         }
+
+        private void Button_ChoosePath(object sender, MouseButtonEventArgs e) {
+            
+        }
     }
 }
