@@ -18,5 +18,9 @@ namespace Packer {
         private void Button_Decode(object sender, MouseButtonEventArgs e) {
 
         }
+
+        private void Button_Encode(object sender, MouseButtonEventArgs e) {
+
+        }
     }
 }

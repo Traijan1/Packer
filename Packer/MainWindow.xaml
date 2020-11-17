@@ -6,20 +6,16 @@
         xmlns:local="clr-namespace:Packer"
         mc:Ignorable="d"
         ResizeMode="NoResize"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="400">
     <Grid>
-        <TextBlock Width="50" Height="20" RenderTransformOrigin="-6.28,-7.35" Margin="11,21,733,380">Pfad:</TextBlock>
-        <TextBlock Name="FilePath" Margin="10,45,389,354">Kein Pfad angegeben</TextBlock>
-        <Button MouseLeftButtonDown="Button_ChoosePath" Margin="10,77,684,317">Datei auswählen</Button>
+        <TextBlock Width="50" Height="20" RenderTransformOrigin="-6.28,-7.35" Margin="12,10,332,391">Pfad:</TextBlock>
+        <TextBlock Name="FilePath" Margin="12,35,8,364">Keinen Pfad angegeben</TextBlock>
+        <Button MouseLeftButtonDown="Button_ChoosePath" Margin="10,163,273,230">Datei auswählen</Button>
 
-        <TextBlock Margin="10,144,660,251">Dateinamen angeben:</TextBlock>
-        <TextBox Name="FileName" Margin="11,170,531,230"></TextBox>
+        <TextBlock Margin="12,89,262,315" >Dateinamen angeben:</TextBlock>
+        <TextBox Name="FileName" Margin="10,111,8,287"></TextBox>
 
-        <Button MouseLeftButtonDown="Button_Decode" Margin="11,219,708,172" RenderTransformOrigin="0.923,0.47">Decode</Button>
-
-        <StackPanel Orientation="Horizontal">
-            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Height="390" Margin="280,10,20,10" />
-        </StackPanel>      
-
+        <Button MouseLeftButtonDown="Button_Decode" RenderTransformOrigin="0.923,0.47" Content="Decode" Margin="10,283,284,110"/>
+        <Button MouseLeftButtonDown="Button_Decode" RenderTransformOrigin="0.923,0.47" Content="Encode" Margin="10,238,284,155"/>
     </Grid>
 </Window>
