@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Packer {
 
     /// <summary>
-    /// EnKodiert die .tom-Datei zurück in ihre Ursprungsdatei
+    /// EnKodiert die .tom-Datei zurück in ihren Ursprung
     /// </summary>
     public static class Encoder {
     
