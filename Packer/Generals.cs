@@ -10,7 +10,8 @@ namespace Packer {
     /// Allgemeine feste Werte
     /// </summary>
     public static class Generals {
-        public const String fileExt = ".tom";
+        public const string fileExt = ".tom";
+        public const string magicNumber = "e=mc^2";
         public const char marker = '´';
     }
 }
