@@ -15,7 +15,7 @@ namespace Packer {
         /// <summary>
         /// Enkodiert die .tom-Datei zurück in ihren Ursprung
         /// </summary>
-        /// <param name="fileName"></param>
+        /// <param name="fileName">Die Packer-Datei</param>
         public static void Encode(String fileName) {
 
         }
