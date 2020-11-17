@@ -17,6 +17,7 @@ namespace Packer {
     /// <summary>
     /// Interaktionslogik für MainWindow.xaml
     /// </summary>
+    //hallo
     public partial class MainWindow : Window {
         public MainWindow() {
             InitializeComponent();
