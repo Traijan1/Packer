@@ -7,6 +7,8 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        
+        <TextBlock Width="50" Height="20" RenderTransformOrigin="-6.28,-7.35" Margin="10,42,732,357">Pfad: </TextBlock>
+        <TextBlock Name="FilePath" Margin="10,67,389,332">Kein Pfad angegeben</TextBlock>
+        <Button MouseLeftButtonDown="Button_ChoosePath" Margin="10,99,684,295">Datei auswählen</Button>
     </Grid>
 </Window>
