@@ -8,8 +8,18 @@
         ResizeMode="NoResize"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <TextBlock Width="50" Height="20" RenderTransformOrigin="-6.28,-7.35" Margin="10,42,732,357">Pfad: </TextBlock>
-        <TextBlock Name="FilePath" Margin="10,67,389,332">Kein Pfad angegeben</TextBlock>
-        <Button MouseLeftButtonDown="Button_ChoosePath" Margin="10,99,684,295">Datei auswählen</Button>
+        <TextBlock Width="50" Height="20" RenderTransformOrigin="-6.28,-7.35" Margin="11,21,733,380">Pfad:</TextBlock>
+        <TextBlock Name="FilePath" Margin="10,45,389,354">Kein Pfad angegeben</TextBlock>
+        <Button MouseLeftButtonDown="Button_ChoosePath" Margin="10,77,684,317">Datei auswählen</Button>
+
+        <TextBlock Margin="10,144,660,251">Dateinamen angeben:</TextBlock>
+        <TextBox Name="FileName" Margin="11,170,531,230"></TextBox>
+
+        <Button MouseLeftButtonDown="Button_Decode" Margin="11,219,708,172" RenderTransformOrigin="0.923,0.47">Decode</Button>
+
+        <StackPanel Orientation="Horizontal">
+            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Height="390" Margin="280,10,20,10" />
+        </StackPanel>      
+
     </Grid>
 </Window>
