@@ -8,14 +8,14 @@
         ResizeMode="NoResize"
         Title="MainWindow" Height="450" Width="400">
     <Grid>
-        <TextBlock Width="50" Height="20" RenderTransformOrigin="-6.28,-7.35" Margin="12,10,332,391">Pfad:</TextBlock>
+        <TextBlock Width="50" Height="20" Margin="12,10,332,391">Zielpfad:</TextBlock>
         <TextBlock Name="FilePath" Margin="12,35,8,364">Keinen Pfad angegeben</TextBlock>
-        <Button MouseLeftButtonDown="Button_ChoosePath" Margin="10,163,273,230">Datei auswählen</Button>
+        <Button MouseLeftButtonDown="Button_ChoosePath" Margin="10,62,273,331">Datei auswählen</Button>
 
-        <TextBlock Margin="12,89,262,315" >Dateinamen angeben:</TextBlock>
-        <TextBox Name="FileName" Margin="10,111,8,287"></TextBox>
+        <TextBlock Margin="12,137,262,267" >Dateinamen angeben:</TextBlock>
+        <TextBox Name="FileName" Margin="10,159,8,239"></TextBox>
 
-        <Button MouseLeftButtonDown="Button_Decode" RenderTransformOrigin="0.923,0.47" Content="Decode" Margin="10,283,284,110"/>
-        <Button MouseLeftButtonDown="Button_Decode" RenderTransformOrigin="0.923,0.47" Content="Encode" Margin="10,238,284,155"/>
+        <Button MouseLeftButtonDown="Button_Decode" Content="Decode" Margin="10,283,284,110"/>
+        <Button MouseLeftButtonDown="Button_Decode" Content="Encode" Margin="10,241,284,152"/>
     </Grid>
 </Window>
