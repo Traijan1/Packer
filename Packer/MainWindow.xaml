@@ -8,15 +8,26 @@
         ResizeMode="NoResize"
         Title="MainWindow" Height="450" Width="400">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="0.75*"></RowDefinition>
+            <RowDefinition Height="0.25*"></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
+        </Grid.RowDefinitions>
+
         <!-- TextBlock ist für reines Text anzeigen geeigneter als Panel weil leichter -->
-        <TextBlock Width="50" Height="20" Margin="12,10,332,391">Zielpfad:</TextBlock>
-        <TextBlock Name="FilePath" Margin="12,35,8,364">Keinen Pfad angegeben</TextBlock>
-        <Button MouseLeftButtonDown="Button_ChoosePath" Margin="10,62,273,331">Datei auswählen</Button>
+        <TextBlock Grid.Column="0" Grid.Row="0" Margin="12,10,-61,75">Zielpfad:</TextBlock>
+        <TextBlock Grid.Column="0" Grid.Row="0" Name="FilePath" Margin="12,31,-145,85">Keinen Pfad angegeben</TextBlock>
+        <Button Grid.Column="0" Grid.Row="0" MouseLeftButtonDown="Button_ChoosePath" Margin="12,61,-135,42">Datei auswählen</Button>
 
-        <TextBlock Margin="12,137,262,267" >Dateinamen angeben:</TextBlock>
-        <TextBox Name="FileName" Margin="10,159,8,239"></TextBox>
+        <TextBlock Grid.Column="0" Grid.Row="1" Margin="12,15,-145,50">Dateinamen angeben:</TextBlock>
+        <TextBox Grid.Column="0" Grid.Row="1" Name="FileName" Margin="12,39,-375,39"></TextBox>
 
-        <Button MouseLeftButtonDown="Button_Decode" Content="Decode" Margin="10,283,284,110"/>
-        <Button MouseLeftButtonDown="Button_Decode" Content="Encode" Margin="10,241,284,152"/>
+        <Button Grid.Column="0" Grid.Row="2" MouseLeftButtonDown="Button_Decode" Content="Decode" Margin="12,0,-112,0" />
+        <Button Grid.Column="0" Grid.Row="2" MouseLeftButtonDown="Button_Decode" Content="Encode" Margin="130,0,-229,0" />
     </Grid>
 </Window>
