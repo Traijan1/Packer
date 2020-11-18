@@ -18,11 +18,14 @@ namespace Packer {
 
             //MessageBox.Show("Test Marker: " + UnitTest.TestGetCharOfHeader(Generals.Marker).ToString());
 
-            Decoder.Decode("black.bmp", "black.bmp");
+            Decoder.Decode("ErsterDecodeTest.txt", "ErsterDecodeTest");
         }
 
         private void Button_ChoosePath(object sender, MouseButtonEventArgs e) {
-            
+            OpenFileDialog open = new OpenFileDialog(); // Schauen wie man beim Encoden nur .tom-Dateien anzeigen kann, mit Filter, aber wie man checkt ob man gerade encoden will
+
+            if(open.ShowDialog() == true)
+                FilePath.Text = open.FileName;
         }
 
         private void Button_Decode(object sender, MouseButtonEventArgs e) {
