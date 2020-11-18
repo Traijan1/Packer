@@ -16,7 +16,7 @@ namespace Packer {
 
             //MessageBox.Show(UnitTest.TestWriteHeader(longName, "test1234.txt").ToString() + " " + UnitTest.TestWriteHeader(name, "1234567.txt").ToString());
 
-            MessageBox.Show("Test Marker: " + UnitTest.TestGetCharOfHeader(Generals.Marker).ToString());
+            //MessageBox.Show("Test Marker: " + UnitTest.TestGetCharOfHeader(Generals.Marker).ToString());
         }
 
         private void Button_ChoosePath(object sender, MouseButtonEventArgs e) {
