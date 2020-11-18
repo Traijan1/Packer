@@ -51,9 +51,9 @@ namespace Packer {
                 //    bw.Write(cache[i]);
 
                 // 226 Bytes | Beim testen an black.bmp
-                bw.Write(Generals.Marker);
-                bw.Write(GetCountOfChar(fsRead, br, c));
-                bw.Write(c);
+                bw.Write((byte)Generals.Marker);
+                bw.Write(count);
+                bw.Write((byte)c);
             }
 
             // FileStreams flushen

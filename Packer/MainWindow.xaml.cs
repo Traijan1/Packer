@@ -18,7 +18,7 @@ namespace Packer {
 
             //MessageBox.Show("Test Marker: " + UnitTest.TestGetCharOfHeader(Generals.Marker).ToString());
 
-            Decoder.Decode("ErsterDecodeTest.txt", "ErsterDecodeTest");
+            Decoder.Decode("ErsterDecodeTest.txt", "ErsterDecodeTest.txt");
         }
 
         private void Button_ChoosePath(object sender, MouseButtonEventArgs e) {
