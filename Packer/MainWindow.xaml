@@ -8,6 +8,7 @@
         ResizeMode="NoResize"
         Title="MainWindow" Height="450" Width="400">
     <Grid>
+        <!-- TextBlock ist für reines Text anzeigen geeigneter als Panel weil leichter -->
         <TextBlock Width="50" Height="20" Margin="12,10,332,391">Zielpfad:</TextBlock>
         <TextBlock Name="FilePath" Margin="12,35,8,364">Keinen Pfad angegeben</TextBlock>
         <Button MouseLeftButtonDown="Button_ChoosePath" Margin="10,62,273,331">Datei auswählen</Button>
