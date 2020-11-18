@@ -13,5 +13,6 @@ namespace Packer {
         public const string FileExt = ".tom";
         public const string MagicNumber = "e=mc^2";
         public const char Marker = '´';
+        public const int MaxLengthFileName = 8;
     }
 }

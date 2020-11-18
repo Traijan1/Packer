@@ -47,21 +47,24 @@ namespace Packer {
         /// <param name="bw">Der BinaryWriter der auf die Datei zeigt</param>
         /// /// <param name="fileName">Der Originalname der zu packenden Datei</param>
         public static void WriteHeader(BinaryWriter bw, string fileName) {
+            // FileInfos bekommen
+            FileInfo info = new FileInfo(fileName);
+
             // Magic Number in die ersten Bytes schreiben
             for(int i = 0; i < Generals.MagicNumber.Length; i++)
                 bw.Write(Generals.MagicNumber[i]);
 
-
             // Marker in den Header einfügen
             bw.Write(Generals.Marker);
 
-
             // Originalnamen einfügen (Name max. 8 und Extension max. 4 lang)
-            if(fileName.Length <= 12) {
+            if(fileName.Length <= 8) {
                 for(int i = 0; i < fileName.Length; i++)
                     bw.Write(fileName[i]);
             }
-
+            else {
+                
+            }
 
             // Header beenden mit einem \r\n (Neue Zeile)
             bw.Write('\r');
