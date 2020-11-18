@@ -9,25 +9,27 @@
         Title="MainWindow" Height="450" Width="400">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0"></ColumnDefinition>
+            <ColumnDefinition Width="12"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="12"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="0.75*"></RowDefinition>
-            <RowDefinition Height="0.25*"></RowDefinition>
-            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="20"></RowDefinition>
+            <RowDefinition Height="110"></RowDefinition>
+            <RowDefinition Height="90"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
         </Grid.RowDefinitions>
 
         <!-- TextBlock ist für reines Text anzeigen geeigneter als Panel weil leichter -->
-        <TextBlock Grid.Column="0" Grid.Row="0" Margin="12,10,-61,75">Zielpfad:</TextBlock>
-        <TextBlock Grid.Column="0" Grid.Row="0" Name="FilePath" Margin="12,31,-145,85">Keinen Pfad angegeben</TextBlock>
-        <Button Grid.Column="0" Grid.Row="0" MouseLeftButtonDown="Button_ChoosePath" Margin="12,61,-135,42">Datei auswählen</Button>
+        <TextBlock Grid.Column="1" Grid.Row="1" Margin="0,10,313,85">Zielpfad:</TextBlock>
+        <TextBlock Grid.Column="1" Grid.Row="1" Name="FilePath" Margin="0,31,0,61">Keinen Pfad angegeben</TextBlock>
+        <Button Grid.Column="1" Grid.Row="1" MouseLeftButtonDown="Button_ChoosePath" Margin="0,55,264,15" HorizontalAlignment="Stretch" Width="Auto" >Datei auswählen</Button>
 
-        <TextBlock Grid.Column="0" Grid.Row="1" Margin="12,15,-145,50">Dateinamen angeben:</TextBlock>
-        <TextBox Grid.Column="0" Grid.Row="1" Name="FileName" Margin="12,39,-375,39"></TextBox>
+        <TextBlock Grid.Column="1" Grid.Row="2" Margin="0,15,252,55">Dateinamen angeben:</TextBlock>
+        <TextBox Grid.Column="1" Grid.Row="2" Name="FileName" Grid.ColumnSpan="2" Margin="0,41,12,28"></TextBox>
 
-        <Button Grid.Column="0" Grid.Row="2" MouseLeftButtonDown="Button_Decode" Content="Decode" Margin="12,0,-112,0" />
-        <Button Grid.Column="0" Grid.Row="2" MouseLeftButtonDown="Button_Decode" Content="Encode" Margin="130,0,-229,0" />
+        <Button Grid.Column="1" Grid.Row="3" MouseLeftButtonDown="Button_Decode" Content="Decode" Margin="0,0,300,0" Grid.ColumnSpan="2" />
+        <Button Grid.Column="1" Grid.Row="3" MouseLeftButtonDown="Button_Decode" Content="Encode" Margin="100,0,188,0" />
     </Grid>
 </Window>
