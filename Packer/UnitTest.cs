@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 namespace Packer {
     public static class UnitTest {
         public static bool TestWriteHeader(String name, String expectedName) {
-            FileStream fs = new FileStream("testwriteheader.bin", FileMode.Create, FileAccess.Write);
+            String outputFile = "testwriteheader.bin";
+            FileStream fs = new FileStream(outputFile, FileMode.Create, FileAccess.Write);
             BinaryWriter bw = new BinaryWriter(fs);
 
             Decoder.WriteHeader(bw, name);
@@ -17,7 +18,7 @@ namespace Packer {
             bw.Close();
             fs.Close();
 
-            fs = new FileStream("testwriteheader.bin", FileMode.Open, FileAccess.Read);
+            fs = new FileStream(outputFile, FileMode.Open, FileAccess.Read);
             BinaryReader br = new BinaryReader(fs);
 
             String header = "";
@@ -30,6 +31,21 @@ namespace Packer {
             fs.Close();
 
             return Generals.MagicNumber + Generals.Marker + expectedName + "\r\n" == header;
+        }
+
+        public static bool TestGetCharOfHeader(char expected) {
+            String outputFile = "TestGetCharOfHeader.bin";
+            FileStream fs = new FileStream(outputFile, FileMode.Create, FileAccess.Write);
+            BinaryWriter bw = new BinaryWriter(fs);
+            Decoder.WriteHeader(bw, outputFile);
+            fs.Flush();
+            bw.Close();
+            fs.Close();
+
+            fs = new FileStream(outputFile, FileMode.Open, FileAccess.Read);
+            BinaryReader br = new BinaryReader(fs);
+
+            return expected == Encoder.GetMarker(fs, br);
         }
     }
 }

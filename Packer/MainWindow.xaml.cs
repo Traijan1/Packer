@@ -11,10 +11,12 @@ namespace Packer {
         public MainWindow() {
             InitializeComponent();
 
-            String longName = "test123455678.txt";
-            String name = "1234567.txt";
+            //String longName = "test123455678.txt";
+            //String name = "1234567.txt";
 
-            MessageBox.Show(UnitTest.TestWriteHeader(longName, "test1234.txt").ToString() + " " + UnitTest.TestWriteHeader(name, "1234567.txt").ToString());
+            //MessageBox.Show(UnitTest.TestWriteHeader(longName, "test1234.txt").ToString() + " " + UnitTest.TestWriteHeader(name, "1234567.txt").ToString());
+
+            MessageBox.Show("Test Marker: " + UnitTest.TestGetCharOfHeader(Generals.Marker).ToString());
         }
 
         private void Button_ChoosePath(object sender, MouseButtonEventArgs e) {
