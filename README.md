@@ -1,2 +1,2 @@
 # Packer
-Dies ist ein Schulprojekt über Lauflängenkodierung in Teamarbeit.
+Ein Schulprojekt über Lauflängenkodierung in Teamarbeit.
