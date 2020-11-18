@@ -47,35 +47,5 @@ namespace Packer {
 
             return expected == Encoder.GetMarker(fs, br);
         }
-
-        public static bool TestDecoderDecode(string fileName, string newFileName, string expected) {
-            Decoder.Decode(fileName, newFileName);
-
-            FileStream fs = new FileStream(newFileName, FileMode.Open, FileAccess.Read);
-            BinaryReader br = new BinaryReader(fs);
-
-            String result = "";
-
-            //for(int i = 0; i < fs.Length - 1; i++)
-            //    result += br.ReadChar();
-
-            String s = "";
-
-            try {
-                while(true)
-                    s += br.ReadChar();
-            }
-            catch(Exception e) { }
-
-            int test = s[22];
-            int t = s[28];
-            int t1 = s[34];
-
-            fs.Flush();
-            br.Close();
-            fs.Close();
-
-            return result == expected;
-        }
     }
 }

@@ -18,8 +18,7 @@ namespace Packer {
 
             //MessageBox.Show("Test Marker: " + UnitTest.TestGetCharOfHeader(Generals.Marker).ToString());
 
-            string ex = Generals.MagicNumber + Generals.Marker + "ErsterDe.txt" + "\r\n" + $"{Generals.Marker}{((char)6) - 48}A" + $"{Generals.Marker}{((char)5) - 48}B" + $"{Generals.Marker}{((char)5) - 48}C";
-            MessageBox.Show($"Decode: {UnitTest.TestDecoderDecode("black.bmp", "ErsterDecodeTest.bin", ex).ToString()}");
+            Decoder.Decode("black.bmp", "BlackBMPTest.bin");
         }
 
         private void Button_ChoosePath(object sender, MouseButtonEventArgs e) {
