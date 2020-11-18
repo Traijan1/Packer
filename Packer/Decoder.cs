@@ -18,7 +18,18 @@ namespace Packer {
         /// <param name="fileName">Der Dateiname der ausgelesen werden soll</param>
         /// <param name="newFileName">Der neue Dateiname</param>
         public static void Decode(String fileName, String newFileName) {
-            
+            // 2 FileStreams erstellen
+
+
+            // BinaryWriter und BinaryReader öffnen
+
+
+
+
+            // FileStream flushen
+
+
+            // FileStream und BinaryWriter closen
         }
 
         /// <summary>
@@ -28,6 +39,26 @@ namespace Packer {
         /// <returns>Der Marker für die Datei</returns>
         public static char GetMarker(BinaryReader br) {
             return ' ';
+        }
+
+        /// <summary>
+        /// Erstellt und schreibt den Header in die ersten Bytes
+        /// </summary>
+        /// <param name="bw">Der BinaryWriter der auf die Datei zeigt</param>
+        public static void WriteHeader(BinaryWriter bw) {
+            // Magic Number in die ersten Bytes schreiben
+
+
+
+            // Marker in den Header einfügen
+
+
+
+            // Originalnamen einfügen (Name max. 8 und Extension max. 4 lang)
+
+
+
+            // Header beenden mit einem \r\n
         }
     }
 }
