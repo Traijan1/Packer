@@ -10,9 +10,11 @@ namespace Packer {
 
         public MainWindow() {
             InitializeComponent();
-            FileInfo info = new FileInfo(@"C:\Users\weber\OneDrive\Schule\TAI12\group_rating.txt");
 
-            MessageBox.Show($"Pfad: {info.FullName}\r\n Name: {info.Name.Substring(0, 8)}\r\n Extension: {info.Extension}");
+            String longName = "test123455678.txt";
+            String name = "1234567.txt";
+
+            MessageBox.Show(UnitTest.TestWriteHeader(longName, "test1234.txt").ToString() + " " + UnitTest.TestWriteHeader(name, "1234567.txt").ToString());
         }
 
         private void Button_ChoosePath(object sender, MouseButtonEventArgs e) {
