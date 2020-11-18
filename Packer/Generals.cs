@@ -10,9 +10,10 @@ namespace Packer {
     /// Allgemeine feste Werte
     /// </summary>
     public static class Generals {
-        public const string FileExt = ".tom";
+        public const string FileExt = ".tom"; 
+        public const string OpenFileDialogFilter = "tom Datei(." + FileExt + ")|." + FileExt;
         public const string MagicNumber = "e=mc^2";
-        public const char Marker = '´';
+        public static char Marker = '´';
         public const int MaxLengthFileName = 8;
     }
 }
