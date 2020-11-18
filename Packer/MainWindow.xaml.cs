@@ -7,6 +7,7 @@ using System.Windows.Input;
 namespace Packer {
     
     public partial class MainWindow : Window {
+
         public MainWindow() {
             InitializeComponent();
         }

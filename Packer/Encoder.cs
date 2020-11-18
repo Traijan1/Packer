@@ -28,5 +28,14 @@ namespace Packer {
         public static char GetMarker(BinaryReader br) {
             return ' ';
         }
+
+        /// <summary>
+        /// Gibt den Namen der Originaldatei zurück
+        /// </summary>
+        /// <param name="br">Der BinaryReader, der die Datei aktuell offen hat</param>
+        /// <returns>Den Namen der Originaldatei</returns>
+        public static string GetOldName(BinaryReader br) {
+            return "";
+        }
     }
 }
