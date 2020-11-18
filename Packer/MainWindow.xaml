@@ -27,7 +27,7 @@
         <TextBlock Grid.Column="1" Grid.Row="1" Name="FilePath" Margin="0,31,0,61">Keinen Pfad angegeben</TextBlock>
         <Button Grid.Column="1" Grid.Row="1" MouseLeftButtonDown="Button_ChoosePath" Margin="0,55,264,15">Datei auswählen</Button>
 
-        <TextBlock Grid.Column="1" Grid.Row="2" Margin="0,15,252,55">Dateinamen angeben:</TextBlock>
+        <TextBlock Grid.Column="1" Grid.Row="2" Margin="0,15,238,55">Dateinamen angeben:</TextBlock>
         <TextBox Grid.Column="1" Grid.Row="2" Name="FileName" Margin="0,41,0,28"></TextBox>
 
         <Button Grid.Column="1" Grid.Row="3" MouseLeftButtonDown="Button_Decode" Content="Decode" Margin="0,0,300,0"/>

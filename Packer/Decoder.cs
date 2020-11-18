@@ -27,13 +27,21 @@ namespace Packer {
             BinaryWriter bw = new BinaryWriter(fsWrite);
 
             // Header einfügen
+            WriteHeader(bw, fileName);
 
+            // Muss noch weiter getestet werden, und am besten mal nochmal ein Vergleich aufbauen (in Tabellen Form) wie die sich die Größe der Dateien sich dann unterscheidet
             while(fsRead.Position < fsRead.Length) {
-                char c = br.ReadChar();
-                string cache = $"{Generals.Marker}{GetCountOfChar(fsRead, br, c)}{c}";
+                char c = (char)br.ReadByte();
+                //string cache = Generals.Marker + GetCountOfChar(fsRead, br, c).ToString() + c;
 
-                for(int i = 0; i < cache.Length; i++)
-                    bw.Write(cache[i]);
+                // Schauen welcher der beiden Methoden benutzt werden soll => Die for ist kleiner (146 Bytes), aber die Zahlen sind eben sichtbar in einem Texteditor
+                //for(int i = 0; i < cache.Length; i++)
+                //    bw.Write(cache[i]);
+
+                // 226 Bytes | Beim testen an black.bmp
+                bw.Write(Generals.Marker);
+                bw.Write(GetCountOfChar(fsRead, br, c));
+                bw.Write(c);
             }
 
             // FileStreams flushen
@@ -51,13 +59,15 @@ namespace Packer {
             int count = 1;
             
             while(true) {
-                if(br.ReadChar() == val)
+                if(fs.Position == fs.Length)
+                    break;
+
+                if((char)br.ReadByte() == val)
                     count++;
                 else {
                     fs.Position -= 1;
                     break;
-                }
-                    
+                }   
             }
 
             return count;
