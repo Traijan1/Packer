@@ -27,7 +27,7 @@ namespace Packer {
             while(testC != '\r')
                 testC = (char)br.ReadByte();
 
-            fsR.Position++;
+            fsR.Position++; // Erforderlich da wir die fsR.Position auf das Ende unseres Headers brauchen >\n<
 
             while(fsR.Position < fsR.Length) //durch alle einträge von  file durchgehen
             {
