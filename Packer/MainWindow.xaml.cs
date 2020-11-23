@@ -18,11 +18,11 @@ namespace Packer {
 
             //MessageBox.Show("Test Marker: " + UnitTest.TestGetCharOfHeader(Generals.Marker).ToString());
 
-            Decoder.Decode("ErsterDecodeTest.txt", "ErsterDecodeTest.txt");
+            Encoder.Encode("test.txt", "encodeTest.txt");
         }
 
         private void Button_ChoosePath(object sender, MouseButtonEventArgs e) {
-            OpenFileDialog open = new OpenFileDialog(); // Schauen wie man beim Encoden nur .tom-Dateien anzeigen kann, mit Filter, aber wie man checkt ob man gerade encoden will
+            OpenFileDialog open = new OpenFileDialog(); // Schauen wie man beim Encoden nur .tom-Dateien anzeigen kann, mit Filter, aber wie man checkt ob man gerade encoden will | Probably Tabs
 
             if(open.ShowDialog() == true)
                 FilePath.Text = open.FileName;

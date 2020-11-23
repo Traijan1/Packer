@@ -64,8 +64,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Decoder.cs" />
     <Compile Include="Encoder.cs" />
+    <Compile Include="Decoder.cs" />
     <Compile Include="Generals.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

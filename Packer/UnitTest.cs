@@ -12,7 +12,7 @@ namespace Packer {
             FileStream fs = new FileStream(outputFile, FileMode.Create, FileAccess.Write);
             BinaryWriter bw = new BinaryWriter(fs);
 
-            Decoder.WriteHeader(bw, name);
+            Encoder.WriteHeader(bw, name);
 
             fs.Flush();
             bw.Close();
@@ -37,7 +37,7 @@ namespace Packer {
             String outputFile = "TestGetCharOfHeader.bin";
             FileStream fs = new FileStream(outputFile, FileMode.Create, FileAccess.Write);
             BinaryWriter bw = new BinaryWriter(fs);
-            Decoder.WriteHeader(bw, outputFile);
+            Encoder.WriteHeader(bw, outputFile);
             fs.Flush();
             bw.Close();
             fs.Close();
@@ -45,7 +45,7 @@ namespace Packer {
             fs = new FileStream(outputFile, FileMode.Open, FileAccess.Read);
             BinaryReader br = new BinaryReader(fs);
 
-            return expected == Encoder.GetMarker(fs, br);
+            return expected == Decoder.GetMarker(fs, br);
         }
     }
 }
