@@ -10,16 +10,6 @@ namespace Packer {
 
         public MainWindow() {
             InitializeComponent();
-
-            //String longName = "test123455678.txt";
-            //String name = "1234567.txt";
-
-            //MessageBox.Show(UnitTest.TestWriteHeader(longName, "test1234.txt").ToString() + " " + UnitTest.TestWriteHeader(name, "1234567.txt").ToString());
-
-            //MessageBox.Show("Test Marker: " + UnitTest.TestGetCharOfHeader(Generals.Marker).ToString());
-
-            Encoder.Encode("128x128black.bmp", "result.bmp");
-            Decoder.Decode("result.bmp.tom", "128x128blackTEST.bmp");
         }
 
         private void Button_ChoosePath(object sender, MouseButtonEventArgs e) {
@@ -30,11 +20,22 @@ namespace Packer {
         }
 
         private void Button_Decode(object sender, MouseButtonEventArgs e) {
-
+            Decoder.Decode("result.pdf.tom", "testTEST.pdf");
         }
 
         private void Button_Encode(object sender, MouseButtonEventArgs e) {
+            if(FilePath.Text == "Keinen Pfad angegeben") { // Überarbeiten
+                MessageBox.Show("Wählen Sie eine Datei aus.");
+                return;
+            }
+            
+            if(FileName.Text == "") {
+                MessageBox.Show("Geben Sie einen Namen in das Textfeld ein.");
+                return;
+            }
 
+            Encoder.Encode(FilePath.Text, FileName.Text);
+            MessageBox.Show("Fertig");
         }
     }
 }

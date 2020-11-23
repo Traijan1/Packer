@@ -30,7 +30,7 @@
         <TextBlock Grid.Column="1" Grid.Row="2" Margin="0,15,238,55">Dateinamen angeben:</TextBlock>
         <TextBox Grid.Column="1" Grid.Row="2" Name="FileName" Margin="0,41,0,28"></TextBox>
 
-        <Button Grid.Column="1" Grid.Row="3" PreviewMouseLeftButtonDown="Button_Decode" Content="Decode" Margin="0,0,300,0"/>
-        <Button Grid.Column="1" Grid.Row="3" PreviewMouseLeftButtonDown="Button_Decode" Content="Encode" Margin="75,0,213,0" />
+        <Button Grid.Column="1" Grid.Row="3" PreviewMouseLeftButtonDown="Button_Encode" Content="Encode" Margin="0,0,300,0"/>
+        <Button Grid.Column="1" Grid.Row="3" PreviewMouseLeftButtonDown="Button_Decode" Content="Decode" Margin="75,0,213,0" />
     </Grid>
 </Window>
