@@ -21,6 +21,14 @@ namespace Packer {
             if(!CheckMagic(br))
                 return false;
 
+            // Nur drinnen bis wir Dateinamen auslesen
+            char testC = ' ';
+
+            while(testC != '\r')
+                testC = (char)br.ReadByte();
+
+            fsR.Position++;
+
             while(fsR.Position < fsR.Length) //durch alle einträge von  file durchgehen
             {
                 byte c = br.ReadByte();

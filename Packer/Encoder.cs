@@ -107,12 +107,12 @@ namespace Packer {
 
             // Den einzufügenden Namen ermitteln
             if(fileName.Length > Generals.MaxLengthFileName)
-                header += fileName.Substring(0, 8) + info.Extension;
+                header += fileName.Substring(0, Generals.MaxLengthFileName) + info.Extension;
             else
                 header += info.Name;
 
             // Header beenden mit einem \r\n (Neue Zeile)
-            header += "\r\n";
+            header += Generals.EndOfHeader;
 
             // Header reinschreiben
             for(int i = 0; i < header.Length; i++)
