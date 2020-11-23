@@ -11,6 +11,7 @@ namespace Packer {
         /// Enkodiert die .tom-Datei zurück in ihren Ursprung
         /// </summary>
         /// <param name="fileName">Die Packer-Datei</param>
+        /// <returns>TRUE wenn der Decode zuende ging, FALSE wenn die Datei nicht die entsprechende MagicNumber besitzt</returns>
         public static bool Decode(string filename, string newFilename) {
             //Streams erstellen und Reader/Writer öffnen
             FileStream fsR = new FileStream(filename, FileMode.Open, FileAccess.Read);

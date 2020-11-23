@@ -18,8 +18,8 @@ namespace Packer {
 
             //MessageBox.Show("Test Marker: " + UnitTest.TestGetCharOfHeader(Generals.Marker).ToString());
 
-            Encoder.Encode("extendedTest.bmp", "result.bmp");
-            Decoder.Decode("result.bmp.tom", "extendedTestTEST.bmp");
+            Encoder.Encode("128x128black.bmp", "result.bmp");
+            Decoder.Decode("result.bmp.tom", "128x128blackTEST.bmp");
         }
 
         private void Button_ChoosePath(object sender, MouseButtonEventArgs e) {
