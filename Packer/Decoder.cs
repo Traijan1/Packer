@@ -52,7 +52,7 @@ namespace Packer {
 
                 // 226 Bytes | Beim testen an black.bmp
                 bw.Write((byte)Generals.Marker);
-                bw.Write(count);
+                bw.Write((byte)count);
                 bw.Write((byte)c);
             }
 

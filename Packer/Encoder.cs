@@ -1,23 +1,66 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
 
-namespace Packer {
+namespace Packer
+{
 
     /// <summary>
     /// Enkodiert die .tom-Datei zurück in ihren Ursprung
     /// </summary>
-    public static class Encoder {
+    public static class Encoder
+    {
 
         /// <summary>
         /// Enkodiert die .tom-Datei zurück in ihren Ursprung
         /// </summary>
         /// <param name="fileName">Die Packer-Datei</param>
-        public static void Encode(String fileName) {
+        public static bool Encode(string filename, string newFilename)
+        {
+            //Streams erstellen und Reader/Writer öffnen
+            FileStream fsR = new FileStream(filename, FileMode.Open, FileAccess.Read);
+            FileStream fsW = new FileStream(newFilename, FileMode.Create, FileAccess.Write);
+            BinaryReader br = new BinaryReader(fsR);
+            BinaryWriter bw = new BinaryWriter(fsW);
 
+            if (!CheckMagic(br))
+                return false;
+
+            while (fsR.Position < fsR.Length) //durch alle einträge von  file durchgehen
+            {
+                byte c = br.ReadByte();
+                if (c == Generals.Marker) //Marker fest -> wird noch geändert  sobald GetMarker fertig
+                {
+                    byte count = br.ReadByte();//wert wieoft das folgende zeichen vorkommt
+                    byte sign = br.ReadByte();//zeichen
+                    for (int i = 0; i < count; i++) // zeichen wird *count geschrieben
+                        bw.Write(sign); 
+                }
+                else
+                {
+                    bw.Write(c);
+                }
+            }
+
+            //Streams flushen und alles schließen
+            fsR.Flush();
+            fsW.Flush();
+
+            br.Close();
+            bw.Close();
+            fsR.Close();
+            fsW.Close();
+
+            return true;
+        }
+
+        public static bool  CheckMagic(BinaryReader br)
+        {
+            string mNumber = "";
+            for (int i = 0; i < Generals.MagicNumber.Length; i++)
+                mNumber += (char)br.ReadByte();
+            if (mNumber != Generals.MagicNumber) 
+                return false;
+            else
+                return true;
         }
 
         /// <summary>
@@ -26,9 +69,10 @@ namespace Packer {
         /// /// <param name="fs">Der aktuelle Stream auf die Datei</param>
         /// <param name="br">Der BinaryReader, der die Datei aktuell offen hat</param>
         /// <returns>Der Marker für die Datei</returns>
-        public static char GetMarker(FileStream fs, BinaryReader br) {
+        public static char GetMarker(FileStream fs, BinaryReader br)
+        {
             fs.Position = Generals.MagicNumber.Length;
-            return br.ReadChar(); 
+            return br.ReadChar();
         }
 
         /// <summary>
@@ -36,7 +80,8 @@ namespace Packer {
         /// </summary>
         /// <param name="br">Der BinaryReader, der die Datei aktuell offen hat</param>
         /// <returns>Den Namen der Originaldatei</returns>
-        public static string GetOldName(BinaryReader br) {
+        public static string GetOldName(BinaryReader br)
+        {
             return "";
         }
     }
