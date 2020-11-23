@@ -20,6 +20,29 @@ namespace Packer {
 
         }
 
+                //string cache = Generals.Marker + GetCountOfChar(fsRead, br, c).ToString() + c;
+
+                // Schauen welcher der beiden Methoden benutzt werden soll => Die for ist kleiner (146 Bytes), aber die Zahlen sind eben sichtbar in einem Texteditor
+                //for(int i = 0; i < cache.Length; i++)
+                //    bw.Write(cache[i]);
+
+                // 226 Bytes | Beim testen an black.bmp
+                bw.Write((byte)Generals.Marker);
+                bw.Write((byte)count);
+                bw.Write((byte)c);
+            }
+
+            // FileStreams flushen
+            fsRead.Flush();
+            fsWrite.Flush();
+
+            // FileStreams und BinaryWriter/BinaryReader closen
+            br.Close();
+            bw.Close();
+            fsRead.Close();
+            fsWrite.Close();
+        }
+
         /// <summary>
         /// Holt sich den Marker für die Datei aus dem Header
         /// </summary>
