@@ -20,7 +20,7 @@ namespace Packer {
         public static void Encode(String fileName, String newFileName) {
             // 2 FileStreams erstellen
             FileStream fsRead = new FileStream(fileName, FileMode.Open, FileAccess.Read);
-            FileStream fsWrite = new FileStream(newFileName + Generals.FileExt, FileMode.Create, FileAccess.Write);
+            FileStream fsWrite = new FileStream(newFileName, FileMode.Create, FileAccess.Write);
 
             // BinaryWriter und BinaryReader öffnen
             BinaryReader br = new BinaryReader(fsRead);
@@ -112,7 +112,7 @@ namespace Packer {
 
             // Den einzufügenden Namen ermitteln
             if(fileName.Length > Generals.MaxLengthFileName)
-                header += fileName.Substring(0, Generals.MaxLengthFileName) + info.Extension;
+                header += fileName.Substring(0, Generals.MaxLengthFileName) + info.Extension; // 4 Zeichen lange Extension only
             else
                 header += info.Name;
 
@@ -121,7 +121,7 @@ namespace Packer {
 
             // Header reinschreiben
             for(int i = 0; i < header.Length; i++)
-                bw.Write(header[i]);
+                bw.Write((byte)header[i]); // Geändert: Zu Byte gecastet, sollten Fehler passieren: Hier schauen
         }
 
         /// <summary>
