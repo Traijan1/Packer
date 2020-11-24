@@ -26,6 +26,8 @@ namespace Packer {
             BinaryReader br = new BinaryReader(fsRead);
             BinaryWriter bw = new BinaryWriter(fsWrite);
 
+            GetMarker(br, fsRead);
+
             // Header einfügen
             WriteHeader(bw, fileName);
 
@@ -140,6 +142,8 @@ namespace Packer {
                 else
                     marker = c_array[i + 1];
              }
+
+             Generals.Marker = marker;
         }
 
         public static void CheckArray(char[] c_array, int[] i_array, char c)
