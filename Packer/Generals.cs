@@ -11,7 +11,7 @@ namespace Packer {
     /// </summary>
     public static class Generals {
         public const string FileExt = ".tom"; 
-        public const string OpenFileDialogFilter = "tom Datei(." + FileExt + ")|." + FileExt;
+        public const string DialogFilter = "tom Datei(" + FileExt + ")|" + FileExt;
         // Maybe die MagicNumber kleiner machen weil ist schon echt huge (Verfehlt dem das komprimieren dann teilweise)
         public const string MagicNumber = "e=mc^2";
         public static char Marker = '`';

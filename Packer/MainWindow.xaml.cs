@@ -41,14 +41,18 @@ namespace Packer {
                 MessageBox.Show("Wählen Sie eine Datei aus.");
                 return;
             }
+
+            SaveFileDialog sf = new SaveFileDialog();
+            sf.Filter = Generals.DialogFilter;
             
-            if(FileName.Text == "") {
-                MessageBox.Show("Geben Sie einen Namen in das Textfeld ein.");
+            if(sf.ShowDialog() == true) {
+                Encoder.Encode(FilePath.Text, sf.FileName);
+                MessageBox.Show("Fertig");
+
                 return;
             }
 
-            Encoder.Encode(FilePath.Text, FileName.Text);
-            MessageBox.Show("Fertig");
+            MessageBox.Show("Unbekannter Fehler: Button_Encode(object, MouseButtonEventArgs)");
         }
     }
 }
