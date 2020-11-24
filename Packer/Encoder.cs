@@ -34,7 +34,7 @@ namespace Packer {
             // Muss noch weiter getestet werden, und am besten mal nochmal ein Vergleich aufbauen (in Tabellen Form) wie die sich die Größe der Dateien sich dann unterscheidet
             while(fsRead.Position < fsRead.Length) {
                 char c = (char)br.ReadByte();
-                int count = GetCountOfChar(fsRead, br, c);
+                byte count = GetCountOfChar(fsRead, br, c);
 
                 // Wenn die der Char nicht marked werden soll, dann die Bytes normal reinschreiben und nächsten Schleifenintervall erzwingen
                 if(count <= 3) {
@@ -76,8 +76,8 @@ namespace Packer {
         /// <param name="br">Der aktuelle BinaryReader auf die zu lesende Datei</param>
         /// <param name="val">Der zu zählende Char</param>
         /// <returns>Die Anzahl wie oft der char vorkommt</returns>
-        public static int GetCountOfChar(FileStream fs, BinaryReader br, char val) {
-            int count = 1;
+        public static byte GetCountOfChar(FileStream fs, BinaryReader br, char val) {
+            byte count = 1;
 
             while(true) {
                 if(fs.Position == fs.Length)
@@ -89,6 +89,9 @@ namespace Packer {
                     fs.Position -= 1;
                     break;
                 }
+
+                if(count == byte.MaxValue)
+                    return count; // Wenn der Wert überschritten ist returnt er den maximalen Bytewert
             }
 
             return count;
@@ -113,7 +116,7 @@ namespace Packer {
             else
                 header += info.Name;
 
-            // Header beenden mit einem \r\n (Neue Zeile)
+            // Header beenden mit einem \r\n
             header += Generals.EndOfHeader;
 
             // Header reinschreiben

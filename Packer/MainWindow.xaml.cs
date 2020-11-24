@@ -33,7 +33,7 @@ namespace Packer {
         }
 
         private void Button_Decode(object sender, MouseButtonEventArgs e) {
-            Decoder.Decode("test.tom.tom", "result.txt");
+            Decoder.Decode("asdasdadsadsad.tom.tom", "result.txt");
         }
 
         private void Button_Encode(object sender, MouseButtonEventArgs e) {
