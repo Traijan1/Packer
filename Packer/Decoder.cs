@@ -73,10 +73,11 @@ namespace Packer {
         /// /// <param name="fs">Der aktuelle Stream auf die Datei</param>
         /// <param name="br">Der BinaryReader, der die Datei aktuell offen hat</param>
         /// <returns>Der Marker für die Datei</returns>
+        
         public static char GetMarker(FileStream fs, BinaryReader br) {
             fs.Position = Generals.MagicNumber.Length;
             return br.ReadChar();
-        }
+        } 
 
         /// <summary>
         /// Gibt den Namen der Originaldatei zurück
