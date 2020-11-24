@@ -5,7 +5,7 @@ using Microsoft.Win32;
 using System.Windows.Input;
 
 namespace Packer {
-    // Test
+    // TestVisua
     public partial class MainWindow : Window {
 
         public MainWindow() {

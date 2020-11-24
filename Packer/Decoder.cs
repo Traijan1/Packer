@@ -65,7 +65,7 @@ namespace Packer {
                 return false;
             else
                 return true;
-        }
+        } 
 
         /// <summary>
         /// Holt sich den Marker für die Datei aus dem Header
