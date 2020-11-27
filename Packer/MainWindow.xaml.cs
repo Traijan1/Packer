@@ -33,8 +33,14 @@ namespace Packer {
         }
 
         private void Button_Decode(object sender, MouseButtonEventArgs e) {
-            Decoder.Decode("result.tom", "result.gif");
-            MessageBox.Show("Fertig");
+            OpenFileDialog of = new OpenFileDialog();
+            of.Filter = Generals.DialogFilter;
+
+            if(of.ShowDialog() == true) {
+                Decoder.Decode(of.FileName, "result.gif");
+                MessageBox.Show("Fertig");
+            }
+
         }
 
         private void Button_Encode(object sender, MouseButtonEventArgs e) {
