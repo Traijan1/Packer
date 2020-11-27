@@ -26,10 +26,12 @@ namespace Packer {
             BinaryReader br = new BinaryReader(fsRead);
             BinaryWriter bw = new BinaryWriter(fsWrite);
 
-            GetMarker(br, fsRead);
+            //GetMarker(br, fsRead); //Scheint noch Probleme zu verursachen
 
             // Header einfügen
             WriteHeader(bw, fileName);
+
+            fsRead.Position = 0;
 
             // Muss noch weiter getestet werden, und am besten mal nochmal ein Vergleich aufbauen (in Tabellen Form) wie die sich die Größe der Dateien sich dann unterscheidet
             while(fsRead.Position < fsRead.Length) {
