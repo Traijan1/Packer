@@ -36,6 +36,15 @@ namespace Packer {
             // Muss noch weiter getestet werden, und am besten mal nochmal ein Vergleich aufbauen (in Tabellen Form) wie die sich die Größe der Dateien sich dann unterscheidet
             while(fsRead.Position < fsRead.Length) {
                 char c = (char)br.ReadByte();
+
+                if(c == Generals.Marker) { // Besser machen
+                    bw.Write((byte)Generals.Marker);
+                    bw.Write((byte)1);
+                    bw.Write((byte)c);
+
+                    continue;
+                }
+
                 byte count = GetCountOfChar(fsRead, br, c);
 
                 // Wenn die der Char nicht marked werden soll, dann die Bytes normal reinschreiben und nächsten Schleifenintervall erzwingen
@@ -48,13 +57,6 @@ namespace Packer {
                     continue;
                 }
 
-                //string cache = Generals.Marker + GetCountOfChar(fsRead, br, c).ToString() + c;
-
-                // Schauen welcher der beiden Methoden benutzt werden soll => Die for ist kleiner (146 Bytes), aber die Zahlen sind eben sichtbar in einem Texteditor
-                //for(int i = 0; i < cache.Length; i++)
-                //    bw.Write(cache[i]);
-
-                // 226 Bytes | Beim testen an black.bmp
                 bw.Write((byte)Generals.Marker);
                 bw.Write((byte)count);
                 bw.Write((byte)c);

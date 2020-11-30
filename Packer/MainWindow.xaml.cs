@@ -34,7 +34,7 @@ namespace Packer {
 
         private void Button_Decode(object sender, MouseButtonEventArgs e) {
             OpenFileDialog of = new OpenFileDialog();
-            of.Filter = Generals.DialogFilter;
+            //of.Filter = Generals.DialogFilter;
 
             if(of.ShowDialog() == true) {
                 Decoder.Decode(of.FileName, "result.gif");
@@ -50,7 +50,7 @@ namespace Packer {
             }
 
             SaveFileDialog sf = new SaveFileDialog();
-            sf.Filter = Generals.DialogFilter;
+            //sf.Filter = Generals.DialogFilter;
             
             if(sf.ShowDialog() == true) {
                 Encoder.Encode(FilePath.Text, sf.FileName);
