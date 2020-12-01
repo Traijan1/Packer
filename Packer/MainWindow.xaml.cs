@@ -33,7 +33,14 @@ namespace Packer {
         }
 
         private void Button_Decode(object sender, MouseButtonEventArgs e) {
-            Decoder.Decode("test.tom.tom", "result.txt");
+            OpenFileDialog of = new OpenFileDialog();
+            //of.Filter = Generals.DialogFilter;
+
+            if(of.ShowDialog() == true) {
+                Decoder.Decode(of.FileName, "result.gif");
+                MessageBox.Show("Fertig");
+            }
+
         }
 
         private void Button_Encode(object sender, MouseButtonEventArgs e) {
@@ -43,7 +50,7 @@ namespace Packer {
             }
 
             SaveFileDialog sf = new SaveFileDialog();
-            sf.Filter = Generals.DialogFilter;
+            //sf.Filter = Generals.DialogFilter;
             
             if(sf.ShowDialog() == true) {
                 Encoder.Encode(FilePath.Text, sf.FileName);
