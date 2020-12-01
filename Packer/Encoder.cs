@@ -135,9 +135,9 @@ namespace Packer {
                 CheckArray(c_array, i_array, c);
              }
              char marker = ' ';
-             for (int i = 0; i < c_array.Length -1; i++)
+             for (int i = 0; i < i_array.Length -1; i++)
              {
-                if (i_array[i] < i_array[i] + 1)
+                if (i_array[i] < i_array[i + 1])
                     marker = c_array[i];
                 else
                     marker = c_array[i + 1];
@@ -151,11 +151,15 @@ namespace Packer {
             for (int i = 0; i < c_array.Length; i++)
             {
                 if (c_array[i] == c)
-                    i_array[i] +=1;
+                {
+                    i_array[i] += 1;
+                    return;
+                }
                 else
                 {
                     c_array[i] = c;
                     i_array[i] = 1;
+                    return;
                 }
             }
         }
