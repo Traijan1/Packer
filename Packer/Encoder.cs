@@ -20,19 +20,32 @@ namespace Packer {
         public static void Encode(String fileName, String newFileName) {
             // 2 FileStreams erstellen
             FileStream fsRead = new FileStream(fileName, FileMode.Open, FileAccess.Read);
-            FileStream fsWrite = new FileStream(newFileName + Generals.FileExt, FileMode.Create, FileAccess.Write);
+            FileStream fsWrite = new FileStream(newFileName, FileMode.Create, FileAccess.Write);
 
             // BinaryWriter und BinaryReader öffnen
             BinaryReader br = new BinaryReader(fsRead);
             BinaryWriter bw = new BinaryWriter(fsWrite);
 
+            //GetMarker(br, fsRead); //Scheint noch Probleme zu verursachen
+
             // Header einfügen
             WriteHeader(bw, fileName);
+
+            fsRead.Position = 0;
 
             // Muss noch weiter getestet werden, und am besten mal nochmal ein Vergleich aufbauen (in Tabellen Form) wie die sich die Größe der Dateien sich dann unterscheidet
             while(fsRead.Position < fsRead.Length) {
                 char c = (char)br.ReadByte();
-                int count = GetCountOfChar(fsRead, br, c);
+
+                if(c == Generals.Marker) { // Besser machen
+                    bw.Write((byte)Generals.Marker);
+                    bw.Write((byte)1);
+                    bw.Write((byte)c);
+
+                    continue;
+                }
+
+                byte count = GetCountOfChar(fsRead, br, c);
 
                 // Wenn die der Char nicht marked werden soll, dann die Bytes normal reinschreiben und nächsten Schleifenintervall erzwingen
                 if(count <= 3) {
@@ -44,13 +57,6 @@ namespace Packer {
                     continue;
                 }
 
-                //string cache = Generals.Marker + GetCountOfChar(fsRead, br, c).ToString() + c;
-
-                // Schauen welcher der beiden Methoden benutzt werden soll => Die for ist kleiner (146 Bytes), aber die Zahlen sind eben sichtbar in einem Texteditor
-                //for(int i = 0; i < cache.Length; i++)
-                //    bw.Write(cache[i]);
-
-                // 226 Bytes | Beim testen an black.bmp
                 bw.Write((byte)Generals.Marker);
                 bw.Write((byte)count);
                 bw.Write((byte)c);
@@ -74,8 +80,8 @@ namespace Packer {
         /// <param name="br">Der aktuelle BinaryReader auf die zu lesende Datei</param>
         /// <param name="val">Der zu zählende Char</param>
         /// <returns>Die Anzahl wie oft der char vorkommt</returns>
-        public static int GetCountOfChar(FileStream fs, BinaryReader br, char val) {
-            int count = 1;
+        public static byte GetCountOfChar(FileStream fs, BinaryReader br, char val) {
+            byte count = 1;
 
             while(true) {
                 if(fs.Position == fs.Length)
@@ -87,6 +93,9 @@ namespace Packer {
                     fs.Position -= 1;
                     break;
                 }
+
+                if(count == byte.MaxValue)
+                    return count; // Wenn der Wert überschritten ist returnt er den maximalen Bytewert
             }
 
             return count;
@@ -107,24 +116,59 @@ namespace Packer {
 
             // Den einzufügenden Namen ermitteln
             if(fileName.Length > Generals.MaxLengthFileName)
-                header += fileName.Substring(0, 8) + info.Extension;
+                header += fileName.Substring(0, Generals.MaxLengthFileName) + info.Extension; // 4 Zeichen lange Extension only
             else
                 header += info.Name;
 
-            // Header beenden mit einem \r\n (Neue Zeile)
-            header += "\r\n";
+            // Header beenden mit einem \r\n
+            header += Generals.EndOfHeader;
 
             // Header reinschreiben
             for(int i = 0; i < header.Length; i++)
-                bw.Write(header[i]);
+                bw.Write((byte)header[i]); // Geändert: Zu Byte gecastet, sollten Fehler passieren: Hier schauen
         }
 
         /// <summary>
         /// Findet den am geeignetesten Marker für die Datei
         /// </summary>
         /// <param name="br">Der BinaryReader, der die Datei aktuell offen hat</param>
-        public static void GetMarker(BinaryReader br) {
-            // Später dann Generals.Marker überschreiben, ist static statt const.
+        public static void GetMarker(BinaryReader br, FileStream fsRead) 
+        {
+            char[] c_array = new char[fsRead.Length];
+            int[] i_array = new int[fsRead.Length];
+            while (fsRead.Position < fsRead.Length)
+             {
+                char c = (char)br.ReadByte();
+                CheckArray(c_array, i_array, c);
+             }
+             char marker = ' ';
+             for (int i = 0; i < i_array.Length -1; i++)
+             {
+                if (i_array[i] < i_array[i + 1])
+                    marker = c_array[i];
+                else
+                    marker = c_array[i + 1];
+             }
+
+             Generals.Marker = marker;
+        }
+
+        public static void CheckArray(char[] c_array, int[] i_array, char c)
+        {
+            for (int i = 0; i < c_array.Length; i++)
+            {
+                if (c_array[i] == c)
+                {
+                    i_array[i] += 1;
+                    return;
+                }
+                else
+                {
+                    c_array[i] = c;
+                    i_array[i] = 1;
+                    return;
+                }
+            }
         }
     }
 }

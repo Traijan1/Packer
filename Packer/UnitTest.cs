@@ -43,5 +43,18 @@ namespace Packer {
 
             return expected == Decoder.GetMarker(fs, br);
         }
+
+        public static bool TestCheckMagic(string fileName) {
+            FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
+            BinaryReader br = new BinaryReader(fs);
+
+            bool checkMagic = Decoder.CheckMagic(br);
+
+            fs.Flush();
+            br.Close();
+            fs.Close();
+
+            return checkMagic;
+        }
     }
 }

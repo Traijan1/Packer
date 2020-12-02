@@ -11,9 +11,12 @@ namespace Packer {
     /// </summary>
     public static class Generals {
         public const string FileExt = ".tom"; 
-        public const string OpenFileDialogFilter = "tom Datei(." + FileExt + ")|." + FileExt;
+        public const string DialogFilter = "tom Datei(.tom)|.tom";
+        // Maybe die MagicNumber kleiner machen weil ist schon echt huge (Verfehlt dem das komprimieren dann teilweise)
         public const string MagicNumber = "e=mc^2";
-        public static char Marker = '´';
+        public static char Marker = '`';
         public const int MaxLengthFileName = 8;
+        // Ende des Headers maybe ein anderes Zeichen geben, da 2 Zeichen auch too much sind
+        public const string EndOfHeader = "\r\n";
     }
 }
