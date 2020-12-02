@@ -26,7 +26,7 @@ namespace Packer {
             BinaryReader br = new BinaryReader(fsRead);
             BinaryWriter bw = new BinaryWriter(fsWrite);
 
-            //GetMarker(br, fsRead); //Scheint noch Probleme zu verursachen
+            GetMarker(br, fsRead); //Scheint noch Probleme zu verursachen
 
             // Header einfügen
             WriteHeader(bw, fileName);
@@ -134,41 +134,41 @@ namespace Packer {
         /// <param name="br">Der BinaryReader, der die Datei aktuell offen hat</param>
         public static void GetMarker(BinaryReader br, FileStream fsRead) 
         {
-            char[] c_array = new char[fsRead.Length];
-            int[] i_array = new int[fsRead.Length];
+            int[] array = new int[255];
+            
             while (fsRead.Position < fsRead.Length)
              {
                 char c = (char)br.ReadByte();
-                CheckArray(c_array, i_array, c);
-             }
-             char marker = ' ';
-             for (int i = 0; i < i_array.Length -1; i++)
-             {
-                if (i_array[i] < i_array[i + 1])
-                    marker = c_array[i];
-                else
-                    marker = c_array[i + 1];
-             }
-
-             Generals.Marker = marker;
-        }
-
-        public static void CheckArray(char[] c_array, int[] i_array, char c)
-        {
-            for (int i = 0; i < c_array.Length; i++)
-            {
-                if (c_array[i] == c)
+                for (int i = 0; i < array.Length; i++)
                 {
-                    i_array[i] += 1;
-                    return;
-                }
-                else
-                {
-                    c_array[i] = c;
-                    i_array[i] = 1;
-                    return;
+                    if (i + 1 == c)
+                    {
+                        array[i] += c;
+                        break;
+                    }    
                 }
             }
+             char marker = leastUsed(array);
+             Generals.Marker = marker;
+        }
+        static char leastUsed(int[] array)
+        {
+            char marker = ' ';
+            for (int i = 0; i < array.Length; i++)
+            {
+                for (int k = 0; k < array.Length - 1 - i; k++)
+                {
+                    if (array[k] == 0)
+                        return (char)(k + 1);
+                    else if (array[k] < array[k + 1] || array[k] == 0)
+                    {
+                        marker = (char)(k + 1);
+                    }
+                    else
+                        marker = (char)(k + 2);
+                }
+            }
+            return marker;
         }
     }
 }
