@@ -26,7 +26,7 @@ namespace Packer {
             BinaryReader br = new BinaryReader(fsRead);
             BinaryWriter bw = new BinaryWriter(fsWrite);
 
-            //GetMarker(br, fsRead); //Scheint noch Probleme zu verursachen
+            GetMarker(br, fsRead); //Scheint noch Probleme zu verursachen
 
             // Header einfügen
             WriteHeader(bw, fileName);
@@ -134,41 +134,7 @@ namespace Packer {
         /// <param name="br">Der BinaryReader, der die Datei aktuell offen hat</param>
         public static void GetMarker(BinaryReader br, FileStream fsRead) 
         {
-            char[] c_array = new char[fsRead.Length];
-            int[] i_array = new int[fsRead.Length];
-            while (fsRead.Position < fsRead.Length)
-             {
-                char c = (char)br.ReadByte();
-                CheckArray(c_array, i_array, c);
-             }
-             char marker = ' ';
-             for (int i = 0; i < i_array.Length -1; i++)
-             {
-                if (i_array[i] < i_array[i + 1])
-                    marker = c_array[i];
-                else
-                    marker = c_array[i + 1];
-             }
 
-             Generals.Marker = marker;
-        }
-
-        public static void CheckArray(char[] c_array, int[] i_array, char c)
-        {
-            for (int i = 0; i < c_array.Length; i++)
-            {
-                if (c_array[i] == c)
-                {
-                    i_array[i] += 1;
-                    return;
-                }
-                else
-                {
-                    c_array[i] = c;
-                    i_array[i] = 1;
-                    return;
-                }
-            }
         }
     }
 }
