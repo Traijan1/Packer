@@ -134,7 +134,41 @@ namespace Packer {
         /// <param name="br">Der BinaryReader, der die Datei aktuell offen hat</param>
         public static void GetMarker(BinaryReader br, FileStream fsRead) 
         {
-
+            int[] array = new int[255];
+            
+            while (fsRead.Position < fsRead.Length)
+             {
+                char c = (char)br.ReadByte();
+                for (int i = 0; i < array.Length; i++)
+                {
+                    if (i + 1 == c)
+                    {
+                        array[i] += c;
+                        break;
+                    }    
+                }
+            }
+             char marker = leastUsed(array);
+             Generals.Marker = marker;
+        }
+        static char leastUsed(int[] array)
+        {
+            char marker = ' ';
+            for (int i = 0; i < array.Length; i++)
+            {
+                for (int k = 0; k < array.Length - 1 - i; k++)
+                {
+                    if (array[k] == 0)
+                        return (char)(k + 1);
+                    else if (array[k] < array[k + 1] || array[k] == 0)
+                    {
+                        marker = (char)(k + 1);
+                    }
+                    else
+                        marker = (char)(k + 2);
+                }
+            }
+            return marker;
         }
     }
 }
