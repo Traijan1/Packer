@@ -132,18 +132,18 @@ namespace Packer {
         /// Findet den am geeignetesten Marker für die Datei
         /// </summary>
         /// <param name="br">Der BinaryReader, der die Datei aktuell offen hat</param>
-        public static void GetMarker(BinaryReader br, FileStream fsRead) 
+        public static void GetMarker(BinaryReader br, FileStream fsRead) //geringst vorkommenden marker ermitteln
         {
-            int[] array = new int[256];
+            int[] array = new int[256]; //array für ascii zeichen
             
             while (fsRead.Position < fsRead.Length)
              {
                 char c = (char)br.ReadByte();
                 for (int i = 0; i < array.Length; i++)
                 {
-                    if (i  == c)
+                    if (i  == c) //wenn zeichen aus file ascii position im array entspricht
                     {
-                        array[i] += c;
+                        array[i] += 1; //wert an der position des ascii wertes erhöhen
                         break;
                     }    
                 }
