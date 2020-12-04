@@ -22,11 +22,7 @@ namespace Packer {
             if(!CheckMagic(br))
                 return false;
 
-            // Nur drinnen bis wir Dateinamen auslesen
-            char testC = ' ';
-
-            while(testC != '\r')
-                testC = (char)br.ReadByte();
+            GetOldName(fsR, br); // Iwie das machen ka, bin müde und absolut rip
 
             fsR.Position++; // Erforderlich da wir die fsR.Position auf das Ende unseres Headers brauchen >\n<
 
@@ -77,15 +73,27 @@ namespace Packer {
         public static char GetMarker(FileStream fs, BinaryReader br) {
             fs.Position = Generals.MagicNumber.Length;
             return br.ReadChar();
-        } 
+        }
 
         /// <summary>
         /// Gibt den Namen der Originaldatei zurück
         /// </summary>
+        /// <param name="fs">Der FileStream, der die Datei aktuell offen hat</param>
         /// <param name="br">Der BinaryReader, der die Datei aktuell offen hat</param>
         /// <returns>Den Namen der Originaldatei</returns>
-        public static string GetOldName(BinaryReader br) {
-            return "";
+        public static string GetOldName(FileStream fs, BinaryReader br) {
+            fs.Position = (Generals.MagicNumber + Generals.Marker).Length;
+            string oldName = "";
+
+            while(true) {
+                byte b = br.ReadByte();
+                if(b == '\r')
+                    break;
+
+                oldName += (char)b;
+            }
+
+            return oldName;
         }
     }
 }

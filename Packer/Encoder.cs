@@ -26,29 +26,20 @@ namespace Packer {
             BinaryReader br = new BinaryReader(fsRead);
             BinaryWriter bw = new BinaryWriter(fsWrite);
 
-            GetMarker(br, fsRead); //Scheint noch Probleme zu verursachen
+            GetMarker(br, fsRead);
 
             // Header einfügen
             WriteHeader(bw, fileName);
 
             fsRead.Position = 0;
 
-            // Muss noch weiter getestet werden, und am besten mal nochmal ein Vergleich aufbauen (in Tabellen Form) wie die sich die Größe der Dateien sich dann unterscheidet
             while(fsRead.Position < fsRead.Length) {
-                char c = (char)br.ReadByte();
-
-                if(c == Generals.Marker) { // Besser machen
-                    bw.Write((byte)Generals.Marker);
-                    bw.Write((byte)1);
-                    bw.Write((byte)c);
-
-                    continue;
-                }
+                byte c = br.ReadByte();
 
                 byte count = GetCountOfChar(fsRead, br, c);
 
-                // Wenn die der Char nicht marked werden soll, dann die Bytes normal reinschreiben und nächsten Schleifenintervall erzwingen
-                if(count <= 3) {
+                // Wenn die der Char nicht marked werden soll, dann die Bytes normal reinschreiben und nächsten Schleifenintervall erzwingen, und Marker soll dabei nicht beachtet werden
+                if(count <= 3 && c != Generals.Marker) {
                     fsRead.Position -= count; // oder count - 1 | TESTEN
 
                     for(int i = 0; i < count; i++)
@@ -58,8 +49,8 @@ namespace Packer {
                 }
 
                 bw.Write((byte)Generals.Marker);
-                bw.Write((byte)count);
-                bw.Write((byte)c);
+                bw.Write(count);
+                bw.Write(c);
             }
 
             // FileStreams flushen
@@ -80,14 +71,14 @@ namespace Packer {
         /// <param name="br">Der aktuelle BinaryReader auf die zu lesende Datei</param>
         /// <param name="val">Der zu zählende Char</param>
         /// <returns>Die Anzahl wie oft der char vorkommt</returns>
-        public static byte GetCountOfChar(FileStream fs, BinaryReader br, char val) {
+        public static byte GetCountOfChar(FileStream fs, BinaryReader br, byte val) {
             byte count = 1;
 
             while(true) {
                 if(fs.Position == fs.Length)
                     break;
 
-                if((char)br.ReadByte() == val)
+                if(br.ReadByte() == val)
                     count++;
                 else {
                     fs.Position -= 1;
@@ -111,12 +102,12 @@ namespace Packer {
 
             // FileInfos bekommen
             FileInfo info = new FileInfo(fullFileName);
-            String fileName = info.Name.Replace(info.Extension, ""); // info.Name gibt den Dateinamen mit Extension; Da nur die Länge des Namens relevant ist wird die Extension abgehakt
-
+            string fileName = info.Name.Replace(info.Extension, ""); // info.Name gibt den Dateinamen mit Extension; Da nur die Länge des Namens relevant ist wird die Extension abgehakt
+            string extension = info.Extension.Length <= Generals.MaxLengthExtName ? info.Extension : info.Extension.Substring(0, Generals.MaxLengthExtName); // Zählt zu der Extension der "." ?
 
             // Den einzufügenden Namen ermitteln
             if(fileName.Length > Generals.MaxLengthFileName)
-                header += fileName.Substring(0, Generals.MaxLengthFileName) + info.Extension; // 4 Zeichen lange Extension only
+                header += fileName.Substring(0, Generals.MaxLengthFileName) + extension;
             else
                 header += info.Name;
 
@@ -132,29 +123,47 @@ namespace Packer {
         /// Findet den am geeignetesten Marker für die Datei
         /// </summary>
         /// <param name="br">Der BinaryReader, der die Datei aktuell offen hat</param>
-        public static void GetMarker(BinaryReader br, FileStream fsRead) 
+        public static void GetMarker(BinaryReader br, FileStream fsRead) //geringst vorkommenden marker ermitteln
         {
             int[] array = new int[256];
 
             while (fsRead.Position < fsRead.Length)
-                array[br.ReadByte()]++;
-   
+             {
+                char c = (char)br.ReadByte();
+                for (int i = 0; i < array.Length; i++)
+                {
+                    if (i + 1 == c)
+                    {
+                        array[i] += c;
+                        break;
+                    }    
+                }
+            }
              char marker = leastUsed(array);
              Generals.Marker = marker;
         }
-        static char leastUsed(int[] array)
+
+        /// <summary>
+        /// Sucht nach dem am geringsten genutzen Char
+        /// </summary>
+        /// <param name="array">Das Array mit den ASCII-Werten</param>
+        /// <returns></returns>
+        static char LeastUsed(int[] array)
         {
             char marker = ' ';
             for (int i = 0; i < array.Length; i++)
             {
-                if (array[i] == 0)
-                    return (char)(i);
-                else if (array[i] < array[i + 1])
+                for (int k = 0; k < array.Length - 1 - i; k++)
                 {
-                    marker = (char)i;
+                    if (array[k] == 0)
+                        return (char)(k + 1);
+                    else if (array[k] < array[k + 1] || array[k] == 0)
+                    {
+                        marker = (char)(k + 1);
+                    }
+                    else
+                        marker = (char)(k + 2);
                 }
-                else
-                    marker = (char)(i + 1);
             }
             return marker;
         }

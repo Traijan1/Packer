@@ -5,7 +5,7 @@ using Microsoft.Win32;
 using System.Windows.Input;
 
 namespace Packer {
-    // TestVisua
+
     public partial class MainWindow : Window {
 
         public MainWindow() {
@@ -37,10 +37,21 @@ namespace Packer {
             //of.Filter = Generals.DialogFilter;
 
             if(of.ShowDialog() == true) {
-                Decoder.Decode(of.FileName, "result.gif");
-                MessageBox.Show("Fertig");
-            }
+                SaveFileDialog sf = new SaveFileDialog();
+                FileStream fs = new FileStream(of.FileName, FileMode.Open, FileAccess.Read);
+                BinaryReader br = new BinaryReader(fs);
 
+                sf.FileName = Decoder.GetOldName(fs, br); // Besser machen
+
+                fs.Flush();
+                br.Close();
+                fs.Close();
+
+                if(sf.ShowDialog() == true) {
+                    Decoder.Decode(of.FileName, sf.FileName);
+                    MessageBox.Show("Fertig");
+                }
+            }
         }
 
         private void Button_Encode(object sender, MouseButtonEventArgs e) {
@@ -49,9 +60,13 @@ namespace Packer {
                 return;
             }
 
+            FileInfo info = new FileInfo(FilePath.Text);
+
             SaveFileDialog sf = new SaveFileDialog();
-            //sf.Filter = Generals.DialogFilter;
-            
+            sf.Filter = Generals.DialogFilter;
+            sf.InitialDirectory = info.DirectoryName; // Ändert das SaveFileDialog Verzeichnis auf das der Originaldatei
+            sf.FileName = info.Name.Replace(info.Extension, "") + Generals.FileExt; // Standardname ist der Name der Originaldatei
+
             if(sf.ShowDialog() == true) {
                 Encoder.Encode(FilePath.Text, sf.FileName);
                 MessageBox.Show("Fertig");
