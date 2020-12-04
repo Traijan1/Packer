@@ -125,16 +125,16 @@ namespace Packer {
         /// <param name="br">Der BinaryReader, der die Datei aktuell offen hat</param>
         public static void GetMarker(BinaryReader br, FileStream fsRead) //geringst vorkommenden marker ermitteln
         {
-            int[] array = new int[256]; //array für ascii zeichen
-            
+            int[] array = new int[256];
+
             while (fsRead.Position < fsRead.Length)
              {
                 char c = (char)br.ReadByte();
                 for (int i = 0; i < array.Length; i++)
                 {
-                    if (i == c) //wenn zeichen aus file ascii position im array entspricht
+                    if (i + 1 == c)
                     {
-                        array[i] += 1; //wert an der position des ascii wertes erhöhen
+                        array[i] += c;
                         break;
                     }    
                 }
@@ -149,20 +149,15 @@ namespace Packer {
         /// <returns></returns>
         static char LeastUsed(int[] array)
         {
-            char marker = ' ';
+            char marker = (char)0;
             for (int i = 0; i < array.Length; i++)
             {
-                for (int k = 0; k < array.Length - 1 - i; k++)
-                {
-                    if (array[k] == 0)
-                        return (char)(k);
-                    else if (array[k] < array[k + 1])
+                    if (array[i] == 0)
+                        return (char)i;
+                    else if (array[i] < marker)
                     {
-                        marker = (char)(k);
-                    }
-                    else
-                        marker = (char)(k + 1);
-                }
+                        marker = (char)i;
+                    }           
             }
             return marker;
         }
