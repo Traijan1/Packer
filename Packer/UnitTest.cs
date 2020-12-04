@@ -56,5 +56,9 @@ namespace Packer {
 
             return checkMagic;
         }
+
+        public static bool CheckFiles(string originalFileName, string newFileName) {
+            return false;
+        }
     }
 }

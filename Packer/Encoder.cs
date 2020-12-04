@@ -139,7 +139,7 @@ namespace Packer {
                     }    
                 }
             }
-             Generals.Marker = LeastUsed(array);
+            Generals.Marker = LeastUsed(array);
         }
 
         /// <summary>
