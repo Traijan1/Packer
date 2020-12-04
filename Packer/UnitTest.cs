@@ -60,5 +60,26 @@ namespace Packer {
         public static bool CheckFiles(string originalFileName, string newFileName) {
             return false;
         }
+
+        public static bool TestLeastChar() {
+            string txt = "TestLeastChar.txt";
+            FileStream fs = new FileStream(txt, FileMode.Create, FileAccess.Write);
+            BinaryWriter bw = new BinaryWriter(fs);
+
+            for(byte i = 0; i < byte.MaxValue - 1; i++) {
+                for(int j = 0; j < i; j++)
+                    bw.Write(i);
+            }
+
+            fs.Flush();
+            bw.Close();
+            fs.Close();
+
+            fs = new FileStream(txt, FileMode.Open, FileAccess.Read);
+            BinaryReader br = new BinaryReader(fs);
+            Encoder.GetMarker(br, fs);
+
+            return Generals.Marker == (char)byte.MaxValue;
+        }
     }
 }
