@@ -26,7 +26,7 @@ namespace Packer {
             br.Close();
             fs.Close();
 
-            return Generals.MagicNumber + Generals.Marker + expectedName + "\r\n" == header;
+            return Generals.MagicNumber + Generals.Marker + expectedName + Generals.EndOfHeader == header;
         }
 
         public static bool TestGetCharOfHeader(char expected) {
@@ -66,8 +66,8 @@ namespace Packer {
             FileStream fs = new FileStream(txt, FileMode.Create, FileAccess.Write);
             BinaryWriter bw = new BinaryWriter(fs);
 
-            for(byte i = 0; i < byte.MaxValue - 1; i++) {
-                for(int j = 0; j < i; j++)
+            for(byte i = 0; i < byte.MaxValue - 1; i++) { 
+                for(int j = 0; j < i + 1; j++)
                     bw.Write(i);
             }
 

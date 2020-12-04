@@ -37,7 +37,7 @@ namespace Packer {
 
         private void Button_Decode(object sender, MouseButtonEventArgs e) {
             OpenFileDialog of = new OpenFileDialog();
-            //of.Filter = Generals.DialogFilter;
+            of.Filter = Generals.DialogFilter;
 
             if(of.ShowDialog() == true) {
                 SaveFileDialog sf = new SaveFileDialog();
@@ -73,11 +73,7 @@ namespace Packer {
             if(sf.ShowDialog() == true) {
                 Encoder.Encode(FilePath.Text, sf.FileName);
                 MessageBox.Show("Fertig");
-
-                return;
             }
-
-            MessageBox.Show("Unbekannter Fehler: Button_Encode(object, MouseButtonEventArgs)");
         }
     }
 }

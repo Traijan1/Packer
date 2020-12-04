@@ -87,7 +87,7 @@ namespace Packer {
 
             while(true) {
                 byte b = br.ReadByte();
-                if(b == '\r')
+                if(b == Generals.EndOfHeader)
                     break;
 
                 oldName += (char)b;

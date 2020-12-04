@@ -18,6 +18,6 @@ namespace Packer {
         public const byte MaxLengthFileName = 8;
         public const byte MaxLengthExtName = 4;
         // Ende des Headers maybe ein anderes Zeichen geben, da 2 Zeichen auch too much sind
-        public const string EndOfHeader = "\r\n";
+        public const char EndOfHeader = '\0';
     }
 }

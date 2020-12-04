@@ -111,7 +111,7 @@ namespace Packer {
             else
                 header += info.Name;
 
-            // Header beenden mit einem \r\n
+            // Header beenden mit einem \0
             header += Generals.EndOfHeader;
 
             // Header reinschreiben

@@ -21,7 +21,7 @@
             <RowDefinition Height="90"></RowDefinition>
             <RowDefinition Height="40"></RowDefinition>
         </Grid.RowDefinitions>
-
+        
         <!-- TextBlock ist für reines Text anzeigen geeigneter als Panel weil leichter -->
         <TextBlock Grid.Column="1" Grid.Row="1" Margin="0,10,313,85">Pfad:</TextBlock>
         <TextBlock Grid.Column="1" Grid.Row="1" Name="FilePath" Margin="0,31,0,61">Keinen Pfad angegeben</TextBlock>
