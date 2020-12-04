@@ -128,17 +128,8 @@ namespace Packer {
             int[] array = new int[256];
 
             while (fsRead.Position < fsRead.Length)
-             {
-                char c = (char)br.ReadByte();
-                for (int i = 0; i < array.Length; i++)
-                {
-                    if (i + 1 == c)
-                    {
-                        array[i] += c;
-                        break;
-                    }    
-                }
-            }
+                array[br.ReadByte()]++;
+
             Generals.Marker = LeastUsed(array);
         }
 
@@ -146,7 +137,7 @@ namespace Packer {
         /// Sucht nach dem am geringsten genutzen Char
         /// </summary>
         /// <param name="array">Das Array mit den ASCII-Werten</param>
-        /// <returns></returns>
+        /// <returns>Returnt den am wenigsten auftretenden Char</returns>
         static char LeastUsed(int[] array)
         {
             char marker = (char)0;
