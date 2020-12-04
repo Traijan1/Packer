@@ -2,6 +2,10 @@
 using System.IO;
 
 namespace Packer {
+
+    /// <summary>
+    /// Globale Klasse für das Testen von Methoden/Aufgaben 
+    /// </summary>
     public static class UnitTest {
         public static bool TestWriteHeader(String name, String expectedName) {
             String outputFile = "testwriteheader.bin";

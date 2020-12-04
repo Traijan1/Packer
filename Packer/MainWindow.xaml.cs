@@ -8,6 +8,8 @@ namespace Packer {
 
     public partial class MainWindow : Window {
 
+        FileInfo file; // Um die Infos der ausgwählten Datei zu erhalten
+
         public MainWindow() {
             InitializeComponent();
 
@@ -24,54 +26,58 @@ namespace Packer {
             //                $"Bei einer Datei ohne MagicNumber: {UnitTest.TestCheckMagic("FileWithoutMagic.tom").ToString()}\r\n" +
             //                $"Bei einer Datei mit halber MagicNumber: {UnitTest.TestCheckMagic("HalfMagicNumber.tom").ToString()}");
 
-            MessageBox.Show($"Test Least Char: {UnitTest.TestLeastChar()} | {Generals.Marker}");
-            Clipboard.SetText("" + (byte)Generals.Marker);
+            //MessageBox.Show($"Test Least Char: {UnitTest.TestLeastChar()} | {Generals.Marker}");
+            //Clipboard.SetText("" + (byte)Generals.Marker);
         }
 
         private void Button_ChoosePath(object sender, MouseButtonEventArgs e) {
             OpenFileDialog open = new OpenFileDialog(); // Schauen wie man beim Encoden nur .tom-Dateien anzeigen kann, mit Filter, aber wie man checkt ob man gerade encoden will | Probably Tabs
 
-            if(open.ShowDialog() == true)
-                FilePath.Text = open.FileName;
+            if(open.ShowDialog() == true) {
+                file = new FileInfo(open.FileName);
+                FileName.Text = file.Name;
+
+                if(file.Extension == Generals.FileExt)
+                    DecodeButton.Visibility = Visibility.Visible;
+                else
+                    EncodeButton.Visibility = Visibility.Visible;
+            }
         }
 
         private void Button_Decode(object sender, MouseButtonEventArgs e) {
-            OpenFileDialog of = new OpenFileDialog();
-            of.Filter = Generals.DialogFilter;
+            SaveFileDialog sf = new SaveFileDialog();
+            FileStream fs = new FileStream(file.FullName, FileMode.Open, FileAccess.Read);
+            BinaryReader br = new BinaryReader(fs);
 
-            if(of.ShowDialog() == true) {
-                SaveFileDialog sf = new SaveFileDialog();
-                FileStream fs = new FileStream(of.FileName, FileMode.Open, FileAccess.Read);
-                BinaryReader br = new BinaryReader(fs);
+            sf.FileName = Decoder.GetOldName(fs, br); // Besser machen
 
-                sf.FileName = Decoder.GetOldName(fs, br); // Besser machen
+            fs.Flush();
+            br.Close();
+            fs.Close();
 
-                fs.Flush();
-                br.Close();
-                fs.Close();
-
-                if(sf.ShowDialog() == true) {
-                    Decoder.Decode(of.FileName, sf.FileName);
-                    MessageBox.Show("Fertig");
-                }
+            if(sf.ShowDialog() == true) {
+                Decoder.Decode(file.FullName, sf.FileName);
+                DecodeButton.Visibility = Visibility.Hidden;
+                FileName.Text = "";
+                MessageBox.Show("Fertig");
             }
         }
 
         private void Button_Encode(object sender, MouseButtonEventArgs e) {
-            if(FilePath.Text == "Keinen Pfad angegeben") { // Überarbeiten
+            if(FileName.Text == "") { 
                 MessageBox.Show("Wählen Sie eine Datei aus.");
                 return;
             }
 
-            FileInfo info = new FileInfo(FilePath.Text);
-
             SaveFileDialog sf = new SaveFileDialog();
             sf.Filter = Generals.DialogFilter;
-            sf.InitialDirectory = info.DirectoryName; // Ändert das SaveFileDialog Verzeichnis auf das der Originaldatei
-            sf.FileName = info.Name.Replace(info.Extension, "") + Generals.FileExt; // Standardname ist der Name der Originaldatei
+            sf.InitialDirectory = file.DirectoryName; // Ändert das SaveFileDialog Verzeichnis auf das der Originaldatei
+            sf.FileName = file.Name.Replace(file.Extension, "") + Generals.FileExt; // Standardname ist der Name der Originaldatei
 
             if(sf.ShowDialog() == true) {
-                Encoder.Encode(FilePath.Text, sf.FileName);
+                Encoder.Encode(file.FullName, sf.FileName);
+                EncodeButton.Visibility = Visibility.Hidden;
+                FileName.Text = "";
                 MessageBox.Show("Fertig");
             }
         }

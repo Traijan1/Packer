@@ -22,9 +22,7 @@ namespace Packer {
             if(!CheckMagic(br))
                 return false;
 
-            GetOldName(fsR, br); // Iwie das machen ka, bin müde und absolut rip
-
-            fsR.Position++; // Erforderlich da wir die fsR.Position auf das Ende unseres Headers brauchen >\n<
+            GetOldName(fsR, br); // Iwie das machen ka, bin müde und absolut rip   AUUUUUFFPASSEN
 
             while(fsR.Position < fsR.Length) //durch alle einträge von  file durchgehen
             {

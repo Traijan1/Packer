@@ -27,11 +27,11 @@ namespace Packer {
             BinaryWriter bw = new BinaryWriter(fsWrite);
 
             GetMarker(br, fsRead);
+            fsRead.Position = 0; // Um die File nochmal neu durchzugehen
 
             // Header einfügen
             WriteHeader(bw, fileName);
 
-            fsRead.Position = 0;
 
             while(fsRead.Position < fsRead.Length) {
                 byte c = br.ReadByte();
@@ -85,8 +85,8 @@ namespace Packer {
                     break;
                 }
 
-                if(count == byte.MaxValue)
-                    return count; // Wenn der Wert überschritten ist returnt er den maximalen Bytewert
+                if(count == byte.MaxValue) // Nach jedem Zählen direkt checken ob MaxValue (255) erreicht wurde
+                    break; // Wenn der Wert überschritten ist returnt er den maximalen Bytewert
             }
 
             return count;
@@ -111,7 +111,7 @@ namespace Packer {
             else
                 header += info.Name;
 
-            // Header beenden mit einem \0
+            // Header beenden mit einem \0 (Wie C-Strings)
             header += Generals.EndOfHeader;
 
             // Header reinschreiben
