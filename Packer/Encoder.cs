@@ -139,7 +139,7 @@ namespace Packer {
                     }    
                 }
             }
-             char marker = leastUsed(array);
+             char marker = LeastUsed(array);
              Generals.Marker = marker;
         }
 
@@ -150,20 +150,15 @@ namespace Packer {
         /// <returns></returns>
         static char LeastUsed(int[] array)
         {
-            char marker = ' ';
+            char marker = (char)0;
             for (int i = 0; i < array.Length; i++)
             {
-                for (int k = 0; k < array.Length - 1 - i; k++)
-                {
-                    if (array[k] == 0)
-                        return (char)(k + 1);
-                    else if (array[k] < array[k + 1] || array[k] == 0)
+                    if (array[i] == 0)
+                        return (char)i;
+                    else if (array[i] < marker)
                     {
-                        marker = (char)(k + 1);
-                    }
-                    else
-                        marker = (char)(k + 2);
-                }
+                        marker = (char)i;
+                    }           
             }
             return marker;
         }
