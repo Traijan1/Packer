@@ -74,7 +74,7 @@ namespace Packer {
                 return false;
 
             while(fsOrigin.Position < fsOrigin.Length) {
-                if(brOrigin.ReadByte() != fsResult.ReadByte())
+                if(brOrigin.ReadByte() != brResult.ReadByte())
                     return false;
             }
 
