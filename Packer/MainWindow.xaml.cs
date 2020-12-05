@@ -3,6 +3,7 @@ using System.Windows;
 using System.IO;
 using Microsoft.Win32;
 using System.Windows.Input;
+using System.Threading;
 
 namespace Packer {
 
@@ -28,6 +29,9 @@ namespace Packer {
 
             //MessageBox.Show($"Test Least Char: {UnitTest.TestLeastChar()} | {Generals.Marker}");
             //Clipboard.SetText("" + (byte)Generals.Marker);
+
+            Thread t = new Thread(new ThreadStart(TestFiles));
+            t.Start();
         }
 
         private void Button_ChoosePath(object sender, MouseButtonEventArgs e) {
@@ -80,6 +84,20 @@ namespace Packer {
                 FileName.Text = "";
                 MessageBox.Show("Fertig");
             }
+        }
+
+        void TestFiles() {
+            string[] files = Directory.GetFiles(Directory.GetCurrentDirectory() + @"\files");
+
+            for(int i = 0; i < files.Length; i++)
+                files[i] = files[i].Replace(Directory.GetCurrentDirectory() + @"\files\", "");
+
+            string output = "";
+
+            foreach(string f in files) 
+                output += $"{f}: " + UnitTest.CheckFiles(f) + "\r\n";
+
+            MessageBox.Show(output);
         }
     }
 }

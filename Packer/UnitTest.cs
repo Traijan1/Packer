@@ -61,8 +61,24 @@ namespace Packer {
             return checkMagic;
         }
 
-        public static bool CheckFiles(string originalFileName, string newFileName) {
-            return false;
+        public static bool CheckFiles(string originalFileName) {
+            Encoder.Encode("files\\" + originalFileName, "encode\\" + originalFileName + Generals.FileExt);
+            Decoder.Decode("encode\\" + originalFileName + Generals.FileExt, "result\\RESULT" + originalFileName);
+
+            FileStream fsOrigin = new FileStream("files\\" + originalFileName, FileMode.Open, FileAccess.Read);
+            FileStream fsResult = new FileStream("result\\RESULT" + originalFileName, FileMode.Open, FileAccess.Read);
+            BinaryReader brOrigin = new BinaryReader(fsOrigin);
+            BinaryReader brResult = new BinaryReader(fsResult);
+
+            if(fsOrigin.Length < fsResult.Length || fsOrigin.Length > fsResult.Length) // Wenn die Originaldatei kleienr als das Ergebnis ist, dann ist sowieso was nicht richtig | Selbe andersrum
+                return false;
+
+            while(fsOrigin.Position < fsOrigin.Length) {
+                if(brOrigin.ReadByte() != fsResult.ReadByte())
+                    return false;
+            }
+
+            return true;
         }
 
         public static bool TestLeastChar() {
