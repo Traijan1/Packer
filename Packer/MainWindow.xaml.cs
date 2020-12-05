@@ -30,8 +30,8 @@ namespace Packer {
             //MessageBox.Show($"Test Least Char: {UnitTest.TestLeastChar()} | {Generals.Marker}");
             //Clipboard.SetText("" + (byte)Generals.Marker);
 
-            Thread t = new Thread(new ThreadStart(TestFiles));
-            t.Start();
+            //Thread t = new Thread(new ThreadStart(TestFiles));
+            //t.Start();
         }
 
         private void Button_ChoosePath(object sender, MouseButtonEventArgs e) {
