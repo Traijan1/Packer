@@ -140,15 +140,17 @@ namespace Packer {
         /// <returns>Returnt den am wenigsten auftretenden Char</returns>
         static char LeastUsed(int[] array)
         {
-            char marker = (char)0;
-            for (int i = 0; i < array.Length; i++)
+            char marker = ' ';
+            int value = int.MaxValue;
+            for(int i = 0; i < array.Length; i++) 
             {
-                    if (array[i] == 0)
-                        return (char)i;
-                    else if (array[i] < marker)
-                    {
-                        marker = (char)i;
-                    }           
+                if(array[i] == 0)
+                    return (char)i;
+                else if(array[i] < value) 
+                {
+                    value = array[i];
+                    marker = (char)i;
+                }
             }
             return marker;
         }
