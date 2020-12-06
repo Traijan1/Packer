@@ -68,16 +68,11 @@ namespace Packer {
                 Decoder.Decode(file.FullName, sf.FileName);
                 DecodeButton.Visibility = Visibility.Hidden;
                 FileName.Text = "";
-                MessageBox.Show("Fertig");
+                Message.Show("Decoder", "Fertig");
             }
         }
 
         private void Button_Encode(object sender, MouseButtonEventArgs e) {
-            if(FileName.Text == "") { 
-                MessageBox.Show("Wählen Sie eine Datei aus.");
-                return;
-            }
-
             SaveFileDialog sf = new SaveFileDialog();
             sf.Filter = Generals.DialogFilter;
             sf.InitialDirectory = file.DirectoryName; // Ändert das SaveFileDialog Verzeichnis auf das der Originaldatei
@@ -87,7 +82,7 @@ namespace Packer {
                 Encoder.Encode(file.FullName, sf.FileName);
                 EncodeButton.Visibility = Visibility.Hidden;
                 FileName.Text = "";
-                MessageBox.Show("Fertig");
+                Message.Show("Encoder", "Fertig");
             }
         }
 
