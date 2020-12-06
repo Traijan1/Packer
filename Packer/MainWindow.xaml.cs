@@ -4,6 +4,7 @@ using System.IO;
 using Microsoft.Win32;
 using System.Windows.Input;
 using System.Threading;
+using System.Diagnostics;
 
 namespace Packer {
 
@@ -27,8 +28,8 @@ namespace Packer {
             //                $"Bei einer Datei ohne MagicNumber: {UnitTest.TestCheckMagic("FileWithoutMagic.tom").ToString()}\r\n" +
             //                $"Bei einer Datei mit halber MagicNumber: {UnitTest.TestCheckMagic("HalfMagicNumber.tom").ToString()}");
 
-            MessageBox.Show($"Test Least Char: {UnitTest.TestLeastChar()} | {Generals.Marker}");
-            Clipboard.SetText("" + (byte)Generals.Marker);
+            //MessageBox.Show($"Test Least Char: {UnitTest.TestLeastChar()} | {Generals.Marker}");
+            //Clipboard.SetText("" + (byte)Generals.Marker);
 
             //Thread t = new Thread(new ThreadStart(TestFiles));
             //t.Start();
@@ -41,10 +42,14 @@ namespace Packer {
                 file = new FileInfo(open.FileName);
                 FileName.Text = file.Name;
 
-                if(file.Extension == Generals.FileExt)
+                if(file.Extension == Generals.FileExt) {
+                    EncodeButton.Visibility = Visibility.Hidden;
                     DecodeButton.Visibility = Visibility.Visible;
-                else
+                }
+                else {
+                    DecodeButton.Visibility = Visibility.Hidden;
                     EncodeButton.Visibility = Visibility.Visible;
+                }
             }
         }
 
