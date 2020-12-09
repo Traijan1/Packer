@@ -26,7 +26,7 @@ namespace Packer {
             BinaryReader br = new BinaryReader(fsRead);
             BinaryWriter bw = new BinaryWriter(fsWrite);
 
-            GetMarker(br, fsRead);
+            //GetMarker(br, fsRead);
             fsRead.Position = 0; // Um die File nochmal neu durchzugehen
 
             // Header einfügen
@@ -72,7 +72,7 @@ namespace Packer {
         /// <param name="val">Der zu zählende Char</param>
         /// <returns>Die Anzahl wie oft der char vorkommt</returns>
         public static byte GetCountOfChar(FileStream fs, BinaryReader br, byte val) {
-            byte count = (byte)'A';
+            byte count = 1;
 
             while(true) {
                 if(fs.Position == fs.Length)

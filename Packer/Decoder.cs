@@ -93,5 +93,10 @@ namespace Packer {
 
             return oldName;
         }
+
+        public static string GetOldFileExtension(string name) {
+            string[] dotSplitted = name.Split('.');
+            return dotSplitted[dotSplitted.Length - 1];
+        }
     }
 }
