@@ -5,6 +5,7 @@ using Microsoft.Win32;
 using System.Windows.Input;
 using System.Threading;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace Packer {
 
@@ -52,7 +53,7 @@ namespace Packer {
                 }
             }
         }
-
+        
         private void Button_Decode(object sender, MouseButtonEventArgs e) {
             SaveFileDialog sf = new SaveFileDialog();
             FileStream fs = new FileStream(file.FullName, FileMode.Open, FileAccess.Read);

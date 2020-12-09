@@ -17,7 +17,7 @@ namespace Packer {
         /// </summary>
         /// <param name="fileName">Der Dateiname der ausgelesen werden soll</param>
         /// <param name="newFileName">Der neue Dateiname</param>
-        public static void Encode(String fileName, String newFileName) {
+        public static void Encode(string fileName, string newFileName) {
             // 2 FileStreams erstellen
             FileStream fsRead = new FileStream(fileName, FileMode.Open, FileAccess.Read);
             FileStream fsWrite = new FileStream(newFileName, FileMode.Create, FileAccess.Write);
@@ -72,7 +72,7 @@ namespace Packer {
         /// <param name="val">Der zu zählende Char</param>
         /// <returns>Die Anzahl wie oft der char vorkommt</returns>
         public static byte GetCountOfChar(FileStream fs, BinaryReader br, byte val) {
-            byte count = 1;
+            byte count = (byte)'A';
 
             while(true) {
                 if(fs.Position == fs.Length)

@@ -10,7 +10,7 @@
         Background="#1F2126"
         Title="Message" Height="170" Width="200">
     <StackPanel>
-        <TextBlock Name="Mes" Margin="18,10,10,58" FontSize="18" TextWrapping="Wrap" Foreground="#F8F6F4" Height="72"></TextBlock>
-        <Button Margin="141,-50,10,0" Height="28" VerticalAlignment="Top" Background="#0A49A8" PreviewMouseLeftButtonDown="Button_MouseLeftButtonDown" Content="Ok"/>
+        <TextBlock Name="Mes" Margin="10,10,10,58" TextAlignment="Center" FontSize="18" TextWrapping="Wrap" Foreground="#F8F6F4" Height="72"></TextBlock>
+        <Button Margin="0, -45, 0, 0" Width="30" HorizontalAlignment="Center" Height="28" VerticalAlignment="Top" Background="#0A49A8" PreviewMouseLeftButtonDown="Button_MouseLeftButtonDown" Content="Ok"/>
     </StackPanel>
 </Window>

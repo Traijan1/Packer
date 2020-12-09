@@ -29,7 +29,7 @@ namespace Packer {
             Message m = new Message();
             m.Title = title;
             m.Mes.Text = content;
-            m.Show();
+            m.Show(); // Show vom Objekt selber, also das öffnen des Fensters
         }
 
         private void Button_MouseLeftButtonDown(object sender, MouseButtonEventArgs e) {
