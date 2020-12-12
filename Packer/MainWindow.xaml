@@ -11,8 +11,8 @@
         Title="Packer" Height="450" Width="500">
     <Grid>
         <!-- TextBlock ist für reines Text anzeigen geeigneter als Panel weil leichter -->
-        <Button  PreviewMouseLeftButtonDown="Button_ChoosePath" FontSize="18" Margin="140,89,140,247" Background="#0A49A8"  Foreground="#F8F6F4">Datei auswählen</Button>
-
+        <Button  Style="{StaticResource MyButtonStyle}" PreviewMouseLeftButtonDown="Button_ChoosePath" FontSize="18" Margin="140,89,140,247" Background="#0A49A8"  Foreground="#F8F6F4">Datei auswählen</Button>
+        
         <TextBlock Name="FileName" TextAlignment="Center" FontSize="18" FontWeight="DemiBold" Height="50" Width="434" Foreground="#F8F6F4" ></TextBlock>
         <Button Name="EncodeButton" Visibility="Hidden" FontSize="18" PreviewMouseLeftButtonDown="Button_Encode" Content="Encode" Margin="174,327,174,36" Background="#0A49A8"  Foreground="#F8F6F4"/>
         <Button Name="DecodeButton" Visibility="Hidden" FontSize="18" PreviewMouseLeftButtonDown="Button_Decode" Content="Decode" Margin="174,327,174,36" Background="#0A49A8"  Foreground="#F8F6F4"/>
