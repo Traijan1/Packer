@@ -40,7 +40,7 @@ namespace Packer {
 
                 // Wenn die der Char nicht marked werden soll, dann die Bytes normal reinschreiben und nächsten Schleifenintervall erzwingen, und Marker soll dabei nicht beachtet werden
                 if(count <= 3 && c != Generals.Marker) {
-                    fsRead.Position -= count; // oder count - 1 | TESTEN
+                    fsRead.Position -= count; 
 
                     for(int i = 0; i < count; i++)
                         bw.Write(br.ReadByte());
@@ -103,7 +103,7 @@ namespace Packer {
             // FileInfos bekommen
             FileInfo info = new FileInfo(fullFileName);
             string fileName = info.Name.Replace(info.Extension, ""); // info.Name gibt den Dateinamen mit Extension; Da nur die Länge des Namens relevant ist wird die Extension abgehakt
-            string extension = info.Extension.Length <= Generals.MaxLengthExtName ? info.Extension : info.Extension.Substring(0, Generals.MaxLengthExtName); // Zählt zu der Extension der "." ?
+            string extension = info.Extension.Length <= Generals.MaxLengthExtName ? info.Extension : info.Extension.Substring(0, Generals.MaxLengthExtName); 
 
             // Den einzufügenden Namen ermitteln
             if(fileName.Length > Generals.MaxLengthFileName)
@@ -116,7 +116,7 @@ namespace Packer {
 
             // Header reinschreiben
             for(int i = 0; i < header.Length; i++)
-                bw.Write((byte)header[i]); // Geändert: Zu Byte gecastet, sollten Fehler passieren: Hier schauen
+                bw.Write((byte)header[i]);
         }
 
         /// <summary>
@@ -125,10 +125,10 @@ namespace Packer {
         /// <param name="br">Der BinaryReader, der die Datei aktuell offen hat</param>
         public static void GetMarker(BinaryReader br, FileStream fsRead) //geringst vorkommenden marker ermitteln
         {
-            int[] array = new int[256];
+            int[] array = new int[256];  // array für alle ascii zeichen
 
-            while (fsRead.Position < fsRead.Length)
-                array[br.ReadByte()]++;
+            while (fsRead.Position < fsRead.Length) 
+                array[br.ReadByte()]++; // je nach ausgelesenem zeichen wird an der posi im ascii array um 1 erhöht
 
             Generals.Marker = LeastUsed(array);
         }
@@ -144,11 +144,11 @@ namespace Packer {
             int value = int.MaxValue;
             for(int i = 0; i < array.Length; i++) 
             {
-                if(array[i] == 0)
+                if(array[i] == 0) // wenn markr nicht vorkommt
                     return (char)i;
-                else if(array[i] < value) 
+                else if(array[i] < value)// wenn char count kleiner als value dann ihn nehmen
                 {
-                    value = array[i];
+                    value = array[i]; 
                     marker = (char)i;
                 }
             }
