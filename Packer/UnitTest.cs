@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 
 namespace Packer {
@@ -63,8 +64,17 @@ namespace Packer {
 
         public static bool CheckFiles(string originalFileName) {
             bool check = true;
+
+            Stopwatch watchEncode = new Stopwatch();
+            Stopwatch watchDecode = new Stopwatch();
+
+            watchEncode.Start();
             Encoder.Encode("files\\" + originalFileName, "encode\\" + originalFileName + Generals.FileExt);
+            watchEncode.Stop();
+
+            watchDecode.Start();
             Decoder.Decode("encode\\" + originalFileName + Generals.FileExt, "result\\RESULT" + originalFileName);
+            watchDecode.Stop();
 
             FileStream fsOrigin = new FileStream("files\\" + originalFileName, FileMode.Open, FileAccess.Read);
             FileStream fsResult = new FileStream("result\\RESULT" + originalFileName, FileMode.Open, FileAccess.Read);
@@ -91,7 +101,7 @@ namespace Packer {
             FileStream tomFS = new FileStream("encode\\" + originalFileName + Generals.FileExt, FileMode.Open, FileAccess.Read);
             FileStream resultFS = new FileStream("result\\RESULT" + originalFileName, FileMode.Open, FileAccess.Read);
 
-            string content = $"Datei {originalFileName.ToUpper()}: Vergleich zu TOM-Datei: {originalFS.Length - tomFS.Length} Bytes | Unterschied zu Result-Datei: {originalFS.Length - resultFS.Length} Bytes | Sind alle Bytes gleich: {check}";
+            string content = $"Datei {originalFileName.ToUpper()}: Vergleich zu TOM-Datei: {originalFS.Length - tomFS.Length} Bytes | Unterschied zu Result-Datei: {originalFS.Length - resultFS.Length} Bytes | Sind alle Bytes gleich: {check} | Datei mit {originalFS.Length} Bytes braucht: {watchEncode.Elapsed.TotalSeconds} zum Encoden, und eine Datei mit {tomFS.Length} braucht: {watchDecode.Elapsed.TotalSeconds} zum Decoden";
 
             originalFS.Flush();
             tomFS.Flush();
