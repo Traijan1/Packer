@@ -28,6 +28,7 @@ namespace Packer {
 
             //GetMarker(br, fsRead);
             fsRead.Position = 0; // Um die File nochmal neu durchzugehen
+            GetMarker(br, fsRead);
 
             // Header einfügen
             WriteHeader(bw, fileName);
