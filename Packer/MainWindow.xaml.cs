@@ -32,8 +32,8 @@ namespace Packer {
             //MessageBox.Show($"Test Least Char: {UnitTest.TestLeastChar()} | {Generals.Marker}");
             //Clipboard.SetText("" + (byte)Generals.Marker);
 
-            //Thread t = new Thread(new ThreadStart(TestFiles));
-            //t.Start();
+            Thread t = new Thread(new ThreadStart(TestFiles));
+            t.Start();
         }
 
         private void Button_ChoosePath(object sender, MouseButtonEventArgs e) {
@@ -95,12 +95,10 @@ namespace Packer {
             for(int i = 0; i < files.Length; i++)
                 files[i] = files[i].Replace(Directory.GetCurrentDirectory() + @"\files\", "");
 
-            string output = "";
-
             foreach(string f in files) 
-                output += $"{f}: " + UnitTest.CheckFiles(f) + "\r\n";
+                UnitTest.CheckFiles(f);
 
-            MessageBox.Show(output);
+            MessageBox.Show("Fertig");
         }
     }
 }
