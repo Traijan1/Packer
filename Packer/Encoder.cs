@@ -26,9 +26,8 @@ namespace Packer {
             BinaryReader br = new BinaryReader(fsRead);
             BinaryWriter bw = new BinaryWriter(fsWrite);
 
-            //GetMarker(br, fsRead);
-            fsRead.Position = 0; // Um die File nochmal neu durchzugehen
             GetMarker(br, fsRead);
+            fsRead.Position = 0; // Um die File nochmal neu durchzugehen
 
             // Header einfügen
             WriteHeader(bw, fileName);

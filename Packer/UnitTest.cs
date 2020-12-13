@@ -62,6 +62,7 @@ namespace Packer {
         }
 
         public static bool CheckFiles(string originalFileName) {
+            bool check = true;
             Encoder.Encode("files\\" + originalFileName, "encode\\" + originalFileName + Generals.FileExt);
             Decoder.Decode("encode\\" + originalFileName + Generals.FileExt, "result\\RESULT" + originalFileName);
 
@@ -70,15 +71,40 @@ namespace Packer {
             BinaryReader brOrigin = new BinaryReader(fsOrigin);
             BinaryReader brResult = new BinaryReader(fsResult);
 
-            if(fsOrigin.Length < fsResult.Length || fsOrigin.Length > fsResult.Length) // Wenn die Originaldatei kleienr als das Ergebnis ist, dann ist sowieso was nicht richtig | Selbe andersrum
-                return false;
+            if(fsOrigin.Length < fsResult.Length || fsOrigin.Length > fsResult.Length) // Wenn die Originaldatei kleiner als das Ergebnis ist, dann ist sowieso was nicht richtig | Selbe andersrum
+                check = false;
 
             while(fsOrigin.Position < fsOrigin.Length) {
                 if(brOrigin.ReadByte() != brResult.ReadByte())
-                    return false;
+                    check = false;
             }
 
-            return true;
+            fsOrigin.Flush();
+            fsResult.Flush();
+
+            brOrigin.Close();
+            brResult.Close();
+            fsOrigin.Close();
+            fsResult.Close();
+
+            FileStream originalFS = new FileStream("files\\" + originalFileName, FileMode.Open, FileAccess.Read);
+            FileStream tomFS = new FileStream("encode\\" + originalFileName + Generals.FileExt, FileMode.Open, FileAccess.Read);
+            FileStream resultFS = new FileStream("result\\RESULT" + originalFileName, FileMode.Open, FileAccess.Read);
+
+            string content = $"Datei {originalFileName.ToUpper()}: Vergleich zu TOM-Datei: {originalFS.Length - tomFS.Length} Bytes | Unterschied zu Result-Datei: {originalFS.Length - resultFS.Length} Bytes | Sind alle Bytes gleich: {check}";
+
+            originalFS.Flush();
+            tomFS.Flush();
+            resultFS.Flush();
+            originalFS.Close();
+            tomFS.Close();
+            resultFS.Close();
+
+            StreamWriter sw = new StreamWriter("result.txt");
+            sw.WriteLine(content);
+            sw.Close();
+
+            return check;
         }
 
         public static bool TestLeastChar() {
