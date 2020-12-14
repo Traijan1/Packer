@@ -33,8 +33,8 @@ namespace Packer {
             //MessageBox.Show($"Test Least Char: {UnitTest.TestLeastChar()} | {Generals.Marker}");
             //Clipboard.SetText("" + (byte)Generals.Marker);
 
-            // Thread t = new Thread(new ThreadStart(TestFiles));
-           // t.Start();
+            //Thread t = new Thread(new ThreadStart(TestFiles));
+            //t.Start();
             #endregion
         }
 
@@ -97,10 +97,13 @@ namespace Packer {
             for(int i = 0; i < files.Length; i++)
                 files[i] = files[i].Replace(Directory.GetCurrentDirectory() + @"\files\", "");
 
+            Stopwatch watch = new Stopwatch();
+            watch.Start();
             foreach(string f in files) 
                 UnitTest.CheckFiles(f);
+            watch.Stop();
 
-            MessageBox.Show("Fertig");
+            MessageBox.Show("Fertig | " + watch.Elapsed.TotalMinutes + " Minuten");
         }
     }
 }

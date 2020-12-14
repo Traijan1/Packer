@@ -104,11 +104,11 @@ namespace Packer {
             // FileInfos bekommen
             FileInfo info = new FileInfo(fullFileName);
             string fileName = info.Name.Replace(info.Extension, ""); // info.Name gibt den Dateinamen mit Extension; Da nur die Länge des Namens relevant ist wird die Extension abgehakt
-            string extension = info.Extension.Length <= Generals.MaxLengthExtName ? info.Extension : info.Extension.Substring(0, Generals.MaxLengthExtName); 
+            string extension = info.Extension.Length <= Generals.MaxLengthExtName ? info.Extension : info.Extension.Substring(0, Generals.MaxLengthExtName) + "~"; 
 
             // Den einzufügenden Namen ermitteln
             if(fileName.Length > Generals.MaxLengthFileName)
-                header += fileName.Substring(0, Generals.MaxLengthFileName) + extension;
+                header += fileName.Substring(0, Generals.MaxLengthFileName - 1) + "~" + extension;
             else
                 header += info.Name;
 

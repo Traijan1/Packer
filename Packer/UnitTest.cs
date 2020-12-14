@@ -101,7 +101,9 @@ namespace Packer {
             FileStream tomFS = new FileStream("encode\\" + originalFileName + Generals.FileExt, FileMode.Open, FileAccess.Read);
             FileStream resultFS = new FileStream("result\\RESULT" + originalFileName, FileMode.Open, FileAccess.Read);
 
-            string content = $"Datei {originalFileName.ToUpper()}: Vergleich zu TOM-Datei: {originalFS.Length - tomFS.Length} Bytes | Unterschied zu Result-Datei: {originalFS.Length - resultFS.Length} Bytes | Sind alle Bytes gleich: {check} | Datei mit {originalFS.Length} Bytes braucht: {watchEncode.Elapsed.TotalSeconds} zum Encoden, und eine Datei mit {tomFS.Length} braucht: {watchDecode.Elapsed.TotalSeconds} zum Decoden";
+            //string content = $"Datei {originalFileName.ToUpper()}: Vergleich zu TOM-Datei: {originalFS.Length - tomFS.Length} Bytes | Unterschied zu Result-Datei: {originalFS.Length - resultFS.Length} Bytes | Sind alle Bytes gleich: {check} | Datei mit {originalFS.Length} Bytes braucht: {watchEncode.Elapsed.TotalSeconds} zum Encoden, und eine Datei mit {tomFS.Length} braucht: {watchDecode.Elapsed.TotalSeconds} zum Decoden";
+
+            string content = $"{originalFileName};{originalFS.Length - tomFS.Length};{originalFS.Length - resultFS.Length};{check};{originalFS.Length};{watchEncode.Elapsed.TotalSeconds};{tomFS.Length};{watchDecode.Elapsed.TotalSeconds}";
 
             originalFS.Flush();
             tomFS.Flush();
