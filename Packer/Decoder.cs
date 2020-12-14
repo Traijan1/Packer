@@ -19,25 +19,28 @@ namespace Packer {
             BinaryReader br = new BinaryReader(fsR);
             BinaryWriter bw = new BinaryWriter(fsW);
 
-            if(!CheckMagic(br))
+            if (fsR.Length == 0)
                 return false;
 
-            GetOldName(fsR, br); // Iwie das machen ka, bin müde und absolut rip   AUUUUUFFPASSEN
+            if (!CheckMagic(br))
+                return false;
+
+            GetOldName(fsR, br); 
 
             while(fsR.Position < fsR.Length) //durch alle einträge von  file durchgehen
             {
                 byte c = br.ReadByte();
-                if(c == Generals.Marker) //Marker fest -> wird noch geändert  sobald GetMarker fertig
+                if(c == Generals.Marker)
                 {
-                    byte count = br.ReadByte();//wert wieoft das folgende zeichen vorkommt
+                    byte count = br.ReadByte();// wert wieoft das folgende zeichen vorkommt
                     byte sign = br.ReadByte();//zeichen
-                    for(int i = 0; i < count; i++) // zeichen wird *count geschrieben
+                    for(int i = 0; i < count; i++) 
                         bw.Write(sign);
                 }
                 else {
                     bw.Write(c);
                 }
-            }
+             }
 
             //Streams flushen und alles schließen
             fsR.Flush();
@@ -51,6 +54,11 @@ namespace Packer {
             return true;
         }
 
+        /// <summary>
+        /// vergleicht magic number mit Generals.MagicNumber um dateiformat zu überprüfen
+        /// </summary>
+        /// <param name="br"> binary reader zur datei</param>
+        /// <returns>true wenn gleich, false wenn ungleich</returns>
         public static bool CheckMagic(BinaryReader br) {
             string mNumber = "";
             for(int i = 0; i < Generals.MagicNumber.Length; i++)
@@ -80,6 +88,9 @@ namespace Packer {
         /// <param name="br">Der BinaryReader, der die Datei aktuell offen hat</param>
         /// <returns>Den Namen der Originaldatei</returns>
         public static string GetOldName(FileStream fs, BinaryReader br) {
+            if (fs.Length == 0)
+                return"";
+
             fs.Position = (Generals.MagicNumber + Generals.Marker).Length;
             string oldName = "";
 

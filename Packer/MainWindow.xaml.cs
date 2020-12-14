@@ -16,6 +16,7 @@ namespace Packer {
         public MainWindow() {
             InitializeComponent();
 
+            #region Tests
             // ######### TESTS WERDEN IRGENDWO BEHALTEN UM SIE VORZUZEIGEN BEI SCHWIERIGKEITEN
 
             //String longName = "test123455678.txt";
@@ -32,12 +33,13 @@ namespace Packer {
             //MessageBox.Show($"Test Least Char: {UnitTest.TestLeastChar()} | {Generals.Marker}");
             //Clipboard.SetText("" + (byte)Generals.Marker);
 
-            Thread t = new Thread(new ThreadStart(TestFiles));
-            t.Start();
+            // Thread t = new Thread(new ThreadStart(TestFiles));
+           // t.Start();
+            #endregion
         }
 
         private void Button_ChoosePath(object sender, MouseButtonEventArgs e) {
-            OpenFileDialog open = new OpenFileDialog(); // Schauen wie man beim Encoden nur .tom-Dateien anzeigen kann, mit Filter, aber wie man checkt ob man gerade encoden will | Probably Tabs
+            OpenFileDialog open = new OpenFileDialog();
 
             if(open.ShowDialog() == true) {
                 file = new FileInfo(open.FileName);
@@ -59,7 +61,7 @@ namespace Packer {
             FileStream fs = new FileStream(file.FullName, FileMode.Open, FileAccess.Read);
             BinaryReader br = new BinaryReader(fs);
 
-            sf.FileName = Decoder.GetOldName(fs, br); // Besser machen
+            sf.FileName = Decoder.GetOldName(fs, br); 
             string fileExt = Decoder.GetOldFileExtension(sf.SafeFileName);
             sf.Filter = fileExt.Replace(".", "") + " Datei |." + fileExt;
 
