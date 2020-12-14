@@ -110,7 +110,7 @@ namespace Packer {
             tomFS.Close();
             resultFS.Close();
 
-            StreamWriter sw = new StreamWriter("result.txt");
+            StreamWriter sw = new StreamWriter("result.txt", true);
             sw.WriteLine(content);
             sw.Close();
 

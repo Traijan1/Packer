@@ -32,11 +32,12 @@ namespace Packer {
             // Header einfügen
             WriteHeader(bw, fileName);
 
+            long length = fsRead.Length;
 
-            while(fsRead.Position < fsRead.Length) {
+            while(fsRead.Position < length) {
                 byte c = br.ReadByte();
 
-                byte count = GetCountOfChar(fsRead, br, c);
+                byte count = GetCountOfChar(fsRead, br, c, length);
 
                 // Wenn die der Char nicht marked werden soll, dann die Bytes normal reinschreiben und nächsten Schleifenintervall erzwingen, und Marker soll dabei nicht beachtet werden
                 if(count <= 3 && c != Generals.Marker) {
@@ -71,11 +72,11 @@ namespace Packer {
         /// <param name="br">Der aktuelle BinaryReader auf die zu lesende Datei</param>
         /// <param name="val">Der zu zählende Char</param>
         /// <returns>Die Anzahl wie oft der char vorkommt</returns>
-        public static byte GetCountOfChar(FileStream fs, BinaryReader br, byte val) {
+        public static byte GetCountOfChar(FileStream fs, BinaryReader br, byte val, long length) {
             byte count = 1;
 
             while(true) {
-                if(fs.Position == fs.Length)
+                if(fs.Position == length)
                     break;
 
                 if(br.ReadByte() == val)
