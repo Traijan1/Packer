@@ -25,9 +25,11 @@ namespace Packer {
             if (!CheckMagic(br))
                 return false;
 
-            GetOldName(fsR, br); 
+            GetOldName(fsR, br);
 
-            while(fsR.Position < fsR.Length) //durch alle einträge von  file durchgehen
+            long length = fsR.Length;
+
+            while(fsR.Position < length) //durch alle einträge von  file durchgehen
             {
                 byte c = br.ReadByte();
                 if(c == Generals.Marker)
