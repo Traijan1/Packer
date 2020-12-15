@@ -15,7 +15,7 @@ namespace Packer {
         public const string MagicNumber = ":)";
         public static char Marker = '`';
         public const byte MaxLengthFileName = 8;
-        public const byte MaxLengthExtName = 4;
+        public const byte MaxLengthExtName = 5;
         public const char EndOfHeader = '\0';
     }
 }

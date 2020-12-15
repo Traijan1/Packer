@@ -108,7 +108,7 @@ namespace Packer {
 
             // Den einzufügenden Namen ermitteln
             if(fileName.Length > Generals.MaxLengthFileName)
-                header += fileName.Substring(0, Generals.MaxLengthFileName - 1) + "~" + extension;
+                header += fileName.Substring(0, Generals.MaxLengthFileName - 1) + "~" + extension; // Name nur 7 Zeichen mit Tilde, und Extension 4 Zeichen und dann eine Tilde bei Bedarf
             else
                 header += info.Name;
 
