@@ -11,6 +11,6 @@
         Title="Message" Height="170" Width="200">
     <StackPanel>
         <TextBlock Name="Mes" Margin="10,10,10,58" TextAlignment="Center" FontSize="18" TextWrapping="Wrap" Foreground="#F8F6F4" Height="72"></TextBlock>
-        <Button Style="{StaticResource MyButtonStyle}" Margin="0, -55, 0, 0" Width="40" HorizontalAlignment="Center" Height="38" VerticalAlignment="Top" Background="#0A49A8" PreviewMouseLeftButtonDown="Button_MouseLeftButtonDown"  Foreground="#F8F6F4" Content="Ok"/>
+        <Button Style="{StaticResource MyButtonStyle}" Margin="0, -50, 0, 0" Width="40" HorizontalAlignment="Center" Height="38" VerticalAlignment="Top" PreviewMouseLeftButtonDown="Button_MouseLeftButtonDown" Content="Ok"/>
     </StackPanel>
 </Window>

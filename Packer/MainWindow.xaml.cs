@@ -84,10 +84,13 @@ namespace Packer {
             sf.FileName = file.Name.Replace(file.Extension, "") + Generals.FileExt; // Standardname ist der Name der Originaldatei
 
             if(sf.ShowDialog() == true) {
+                Stopwatch watch = new Stopwatch();
+                watch.Start();
                 Encoder.Encode(file.FullName, sf.FileName);
+                watch.Stop();
                 EncodeButton.Visibility = Visibility.Hidden;
                 FileName.Text = "";
-                Message.Show("Encoder", "Fertig");
+                Message.Show("Encoder", "Fertig | " + watch.Elapsed.TotalSeconds);
             }
         }
 

@@ -5,6 +5,9 @@
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <Style x:Key="MyButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#0A49A8"/>
+            <Setter Property="Foreground" Value="#F8F6F4"/>
+
             <Setter Property="OverridesDefaultStyle" Value="True"/>
             <Setter Property="Margin" Value="5"/>
             <Setter Property="Template">
