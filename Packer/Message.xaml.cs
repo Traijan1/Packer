@@ -21,14 +21,15 @@ namespace Packer {
             InitializeComponent();
         }
 
-        public static void Show(string content) {
+        public static void Show(string content, int fontSize = 18) {
             Show("Message", content);
         }
 
-        public static void Show(string title, string content) {
+        public static void Show(string title, string content, int fontSize = 18) {
             Message m = new Message();
             m.Title = title;
             m.Mes.Text = content;
+            m.Mes.FontSize = fontSize;
             m.Show(); // Show vom Objekt selber, also das öffnen des Fensters
         }
 

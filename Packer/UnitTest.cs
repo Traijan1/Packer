@@ -101,8 +101,6 @@ namespace Packer {
             FileStream tomFS = new FileStream("encode\\" + originalFileName + Generals.FileExt, FileMode.Open, FileAccess.Read);
             FileStream resultFS = new FileStream("result\\RESULT" + originalFileName, FileMode.Open, FileAccess.Read);
 
-            //string content = $"Datei {originalFileName.ToUpper()}: Vergleich zu TOM-Datei: {originalFS.Length - tomFS.Length} Bytes | Unterschied zu Result-Datei: {originalFS.Length - resultFS.Length} Bytes | Sind alle Bytes gleich: {check} | Datei mit {originalFS.Length} Bytes braucht: {watchEncode.Elapsed.TotalSeconds} zum Encoden, und eine Datei mit {tomFS.Length} braucht: {watchDecode.Elapsed.TotalSeconds} zum Decoden";
-
             string content = $"{originalFileName};{originalFS.Length - tomFS.Length};{originalFS.Length - resultFS.Length};{check};{originalFS.Length};{watchEncode.Elapsed.TotalSeconds};{tomFS.Length};{watchDecode.Elapsed.TotalSeconds}";
 
             originalFS.Flush();
@@ -119,13 +117,13 @@ namespace Packer {
             return check;
         }
 
-        public static bool TestLeastChar() {
+        public static bool TestLeastChar(char search) {
             string txt = "TestLeastChar.txt";
             FileStream fs = new FileStream(txt, FileMode.Create, FileAccess.Write);
             BinaryWriter bw = new BinaryWriter(fs);
 
-            for(byte i = 0; i < byte.MaxValue - 1; i++) { 
-                for(int j = 0; j < i + 1; j++)
+            for(byte i = 0; i < byte.MaxValue; i++) { 
+                if(i != search)
                     bw.Write(i);
             }
 
@@ -137,7 +135,7 @@ namespace Packer {
             BinaryReader br = new BinaryReader(fs);
             Encoder.GetMarker(br, fs);
 
-            return Generals.Marker == (char)byte.MaxValue;
+            return Generals.Marker == search;
         }
     }
 }
