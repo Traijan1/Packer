@@ -12,9 +12,11 @@ namespace Packer {
     public partial class MainWindow : Window {
 
         FileInfo file; // Um die Infos der ausgwählten Datei zu erhalten
+        bool canWork;
 
         public MainWindow() {
             InitializeComponent();
+            canWork = true;
 
             #region Tests
             // ######### TESTS WERDEN IRGENDWO BEHALTEN UM SIE VORZUZEIGEN BEI SCHWIERIGKEITEN
@@ -39,6 +41,11 @@ namespace Packer {
         }
 
         private void Button_ChoosePath(object sender, MouseButtonEventArgs e) {
+            if(!canWork) {
+                Message.Show("Achtung", "Nicht gleichzeitig Decoden oder Encoden");
+                return;
+            }
+            
             OpenFileDialog open = new OpenFileDialog();
 
             if(open.ShowDialog() == true) {
@@ -56,7 +63,7 @@ namespace Packer {
             }
         }
         
-        private void Button_Decode(object sender, MouseButtonEventArgs e) {
+        private async void Button_Decode(object sender, MouseButtonEventArgs e) {
             SaveFileDialog sf = new SaveFileDialog();
             FileStream fs = new FileStream(file.FullName, FileMode.Open, FileAccess.Read);
             BinaryReader br = new BinaryReader(fs);
@@ -70,27 +77,30 @@ namespace Packer {
             fs.Close();
 
             if(sf.ShowDialog() == true) {
-                Decoder.Decode(file.FullName, sf.FileName);
+                canWork = false;
                 DecodeButton.Visibility = Visibility.Hidden;
                 FileName.Text = "";
+                
+                await Task.Run(() => Decoder.Decode(file.FullName, sf.FileName));
                 Message.Show("Decoder", "Fertig");
+                canWork = true;
             }
         }
 
-        private void Button_Encode(object sender, MouseButtonEventArgs e) {
+        private async void Button_Encode(object sender, MouseButtonEventArgs e) {
             SaveFileDialog sf = new SaveFileDialog();
             sf.Filter = Generals.DialogFilter;
             sf.InitialDirectory = file.DirectoryName; // Ändert das SaveFileDialog Verzeichnis auf das der Originaldatei
             sf.FileName = file.Name.Replace(file.Extension, "") + Generals.FileExt; // Standardname ist der Name der Originaldatei
 
             if(sf.ShowDialog() == true) {
-                Stopwatch watch = new Stopwatch();
-                watch.Start();
-                Encoder.Encode(file.FullName, sf.FileName);
-                watch.Stop();
+                canWork = false;
                 EncodeButton.Visibility = Visibility.Hidden;
                 FileName.Text = "";
-                Message.Show("Encoder", "Fertig | " + watch.Elapsed.TotalSeconds);
+    
+                await Task.Run(() => Encoder.Encode(file.FullName, sf.FileName));
+                Message.Show("Encoder", "Fertig");
+                canWork = true;
             }
         }
 
